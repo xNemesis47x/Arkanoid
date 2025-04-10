@@ -3,6 +3,16 @@ using UnityEngine;
 
 public class UpdateManager : MonoBehaviour
 {
+    public GameObject ballPrefab;
+    public Transform ballSpawnPoint;
+
+    public GameObject paddlePrefab;
+    public Transform paddleSpawnPoint;
+
+    public GameObject brickPrefab;
+
+    LevelController levelController = new LevelController();
+
     private static UpdateManager instance;
     public static UpdateManager Instance => instance;
 
@@ -12,6 +22,7 @@ public class UpdateManager : MonoBehaviour
 
     private void Awake()
     {
+        //Se crea el manager
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -24,16 +35,21 @@ public class UpdateManager : MonoBehaviour
         Debug.Log("UpdateManager inicializado");
     }
 
-    // Este método reemplaza el Update global
+    private void Start()
+    {
+        levelController.Start();
+    }
 
+    // Este método reemplaza el Update global
     private void LateUpdate()
     {
+
         float deltaTime = Time.deltaTime;
 
         // Agregar nuevos
         if (toAdd.Count > 0)
         {
-            foreach (var updatable in toAdd)
+            foreach (IUpdatable updatable in toAdd)
             {
                 if (updatable != null && !updatables.Contains(updatable))
                     updatables.Add(updatable);
@@ -44,7 +60,7 @@ public class UpdateManager : MonoBehaviour
         // Ejecutar CustomUpdate y remover los null automáticamente
         for (int i = updatables.Count - 1; i >= 0; i--)
         {
-            var obj = updatables[i];
+            IUpdatable obj = updatables[i];
             if (obj == null)
             {
                 updatables.RemoveAt(i); // remover si está destruido
@@ -58,13 +74,14 @@ public class UpdateManager : MonoBehaviour
         // Limpiar los que se pidieron quitar explícitamente
         if (toRemove.Count > 0)
         {
-            foreach (var obj in toRemove)
+            foreach (IUpdatable obj in toRemove)
             {
                 updatables.Remove(obj);
             }
             toRemove.Clear();
         }
     }
+
     // Registrar un objeto que implementa IUpdatable
     public void Register(IUpdatable updatable)
     {
@@ -82,10 +99,16 @@ public class UpdateManager : MonoBehaviour
             toRemove.Add(updatable);
         }
     }
+
     public void ClearAll()
     {
         updatables.Clear();
         toAdd.Clear();
         toRemove.Clear();
+    }
+
+    public void DestoyThis(Object obj)
+    {
+        Destroy(obj);
     }
 }

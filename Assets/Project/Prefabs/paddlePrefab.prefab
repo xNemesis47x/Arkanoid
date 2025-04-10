@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 401750713626550233}
   - component: {fileID: 6301403783171663188}
   - component: {fileID: 6756095776087864230}
-  - component: {fileID: 7867203053974562506}
   m_Layer: 0
   m_Name: paddlePrefab
   m_TagString: Untagged
@@ -106,18 +105,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7867203053974562506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2994900055087329948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f29049e19fe4bb545b7cdb088d0289f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 27.1
-  ballPrefab: {fileID: 6504268041280160584, guid: 6622669b99558b242b5444e2265675a8, type: 3}
-  ballSpawnPoint: {fileID: 8119531071221155363, guid: 6622669b99558b242b5444e2265675a8, type: 3}

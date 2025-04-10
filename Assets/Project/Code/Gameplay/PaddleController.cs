@@ -1,22 +1,34 @@
 using UnityEngine;
 
-public class PaddleController : MonoBehaviour, IUpdatable
+public class PaddleController : IUpdatable
 {
     [Header("Movimiento")]
-    [SerializeField] private float speed = 10f;
+    private float speed = 10f;
 
     [Header("Pelota")]
-    [SerializeField] private BallController ballPrefab;
-    [SerializeField] private Transform ballSpawnPoint;
+    private GameObject ballPrefab;
+    private Transform ballSpawnPoint;
 
     private BallController currentBall;
-    private Vector2 size;
+    private Vector3 size;
+    private Vector3 position;
 
-    public Vector2 Size => size;
+    private Transform paddleTransform;
 
-    public void Initialize()
+    private System.Action onDestroyCallback;
+
+    public Vector3 Size => size;
+
+    public Vector3 Position => position;
+
+    public void Initialize(Renderer rendererFake, Transform transform)
     {
-        Renderer rend = GetComponent<Renderer>();
+        ballPrefab = UpdateManager.Instance.ballPrefab;
+        ballSpawnPoint = UpdateManager.Instance.ballSpawnPoint;
+        Renderer rend = rendererFake;
+        paddleTransform = transform;
+        currentBall = new BallController();
+
         if (rend != null)
         {
             size = rend.bounds.size;
@@ -26,33 +38,37 @@ public class PaddleController : MonoBehaviour, IUpdatable
             Debug.LogError("El Paddle no tiene un Renderer asignado.");
         }
 
+        position = paddleTransform.position;
+
         UpdateManager.Instance.Register(this);
         SpawnNewBall();
     }
 
     public void Dispose()
-{
-    UpdateManager.Instance.Unregister(this);
-
-    if (currentBall != null)
     {
-        currentBall.Dispose();
-        GameObject.Destroy(currentBall.gameObject);
-    }
+        UpdateManager.Instance.Unregister(this);
 
-    GameObject.Destroy(this.gameObject); // <-- agregá esto si se va a destruir desde fuera
-}
+        if (currentBall != null)
+        {
+            currentBall.Dispose();
+        }
+
+        onDestroyCallback?.Invoke();
+    }
 
     public void CustomUpdate(float deltaTime)
     {
         float input = Input.GetAxisRaw("Horizontal");
-        Vector3 movement = new Vector3(input * speed * deltaTime, 0f, 0f);
-        transform.position += movement;
+        Vector3 movement = new (input * speed * deltaTime, 0f, 0f);
+        position += movement;
 
-        if (currentBall != null && Input.GetKeyDown(KeyCode.Space))
+        if (currentBall != null && Input.GetKeyDown(KeyCode.Space) && !currentBall.IsLaunched)
         {
+            Debug.Log("Go");
             currentBall.Launch();
         }
+
+        paddleTransform.position = position;
     }
 
     public void SpawnNewBall()
@@ -63,8 +79,10 @@ public class PaddleController : MonoBehaviour, IUpdatable
             return;
         }
 
-        BallController newBall = GameObject.Instantiate(ballPrefab, ballSpawnPoint.position, Quaternion.identity);
-        currentBall = newBall;
-        newBall.Initialize(this);
+        GameObject newBallGO = GameObject.Instantiate(ballPrefab, position, Quaternion.identity);
+        Vector3 ballSize = new Vector3(0.5f, 0.5f, 0f); // o lo que uses
+        currentBall.Initialize(this, ballSize, newBallGO.transform);
+
+        currentBall.SetDestroyCallback(() => GameObject.Destroy(newBallGO));
     }
 }

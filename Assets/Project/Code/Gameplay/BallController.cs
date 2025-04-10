@@ -1,31 +1,44 @@
 using UnityEngine;
 
-public class BallController : MonoBehaviour, IUpdatable
+public class BallController : IUpdatable
 {
-    [SerializeField] private float speed = 8f;
-    private Vector2 direction;
+    private float speed = 8f;
+    private Vector3 direction;
     private bool isLaunched;
-    private Vector2 size;
+    private Vector3 size;
+    private Vector3 pos;
     private PaddleController paddleOwner;
-    private Transform ballSpawnPoint;
+    private System.Action onDestroyBall;
 
-    public void Initialize(PaddleController owner)
+    private Transform ballTransform;
+
+    public bool IsLaunched => isLaunched;
+
+    public void SetDestroyCallback(System.Action _event)
+    {
+        onDestroyBall = _event;
+    }
+
+    public void Initialize(PaddleController owner, Vector3 sizeFake, Transform transform)
     {
         paddleOwner = owner;
         isLaunched = false;
-        direction = Vector2.zero;
-        size = GetComponent<Renderer>().bounds.size;
+        direction = Vector3.zero;
+        size = sizeFake;
+        pos = paddleOwner.Position + Vector3.up * 0.5f;
+        ballTransform = transform;
 
-        //Esto asegura que la pelota empiece en el lugar correcto
-        transform.position = paddleOwner.transform.position + Vector3.up * 0.5f;
+        ballTransform.position = pos;
 
         UpdateManager.Instance.Register(this);
     }
 
+    //Lo suma a la lista de objetos a eliminar 
     public void Dispose()
     {
         UpdateManager.Instance.Unregister(this);
         Debug.Log("Pelota eliminada y desregistrada del UpdateManager.");
+        onDestroyBall?.Invoke();
     }
 
     public void Launch()
@@ -35,25 +48,27 @@ public class BallController : MonoBehaviour, IUpdatable
         isLaunched = true;
         Debug.Log($"Pelota lanzada con dirección {direction}");
     }
+
     public void CustomUpdate(float deltaTime)
     {
         if (!isLaunched)
         {
             // Seguir la posición de la paleta (centrado en X, justo arriba en Y)
-            Vector2 paddlePos = paddleOwner.transform.position;
+            Vector2 paddlePos = paddleOwner.Position;
             Vector2 paddleSize = paddleOwner.Size;
 
-            transform.position = new Vector2(paddlePos.x, paddlePos.y + (paddleSize.y / 2f) + (size.y / 2f));
+            pos = new Vector2(paddlePos.x, paddlePos.y + (paddleSize.y / 2f) + (size.y / 2f));
+            ballTransform.position = pos;
             return;
         }
 
         // Movimiento de la pelota si ya fue lanzada
         Vector3 movement = (Vector3)(direction * speed * deltaTime);
-        transform.position += movement;
+        pos += movement;
 
         // Colisión con la paleta (rebote)
-        Vector2 ballPos = transform.position;
-        Vector2 paddlePosRebote = paddleOwner.transform.position;
+        Vector2 ballPos = pos;
+        Vector2 paddlePosRebote = paddleOwner.Position;
         Vector2 paddleSizeRebote = paddleOwner.Size;
 
         bool isOverlappingX = Mathf.Abs(ballPos.x - paddlePosRebote.x) < (size.x / 2f + paddleSizeRebote.x / 2f);
@@ -73,53 +88,40 @@ public class BallController : MonoBehaviour, IUpdatable
 
         HandleScreenBounds();
         HandleBrickCollision();
+
+        ballTransform.position = pos;
     }
-    //public void CustomUpdate(float deltaTime)
-    //{
-    //    if (!isLaunched)
-    //    {
-    //        Debug.Log("Esperando a que se lance la pelota...");
-    //        return;
-    //    }
-
-    //    transform.position += (Vector3)(direction * speed * deltaTime);
-    //    Debug.Log("Pelota moviéndose. Posición actual: " + transform.position);
-
-    //    HandleScreenBounds();
-    //}
 
     private void HandleScreenBounds()
     {
-        Vector2 pos = transform.position;
+        Vector2 pos = this.pos;
 
         if (pos.x <= -10f || pos.x >= 10f)
         {
             direction.x *= -1;
-            Debug.Log("Rebote horizontal. Nueva dirección: " + direction);
         }
 
         if (pos.y >= 5.7f)
         {
             direction.y *= -1;
-            Debug.Log("Rebote superior. Nueva dirección: " + direction);
         }
 
         if (pos.y <= -5f)
         {
             Debug.Log("La pelota salió por abajo. Se destruye y se spawnea una nueva.");
-            Dispose(); // Primero me desregistro
-            Destroy(gameObject);
+            Dispose();
             paddleOwner.SpawnNewBall();
         }
     }
     private void HandleBrickCollision()
     {
-        foreach (var brick in BrickManager.Instance.Bricks)
+        foreach (Brick brick in BrickManager.Instance.Bricks)
         {
-            if (brick != null && brick.CheckCollision(transform.position, size))
+            if (brick != null && brick.CheckCollision(pos, size))
             {
                 direction.y *= -1;
                 brick.DestroyBrick();
+                brick.OnDestroyBrick?.Invoke();
                 break;
             }
         }

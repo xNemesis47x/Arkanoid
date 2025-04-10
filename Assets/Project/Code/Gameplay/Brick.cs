@@ -1,23 +1,27 @@
 using UnityEngine;
 
-public class Brick : MonoBehaviour
+public class Brick
 {
     private Vector2 size;
     private Vector2 position;
 
-    public Vector2 Position => position;
-    public Vector2 Size => size;
+    private GameObject brickGO;
 
-    public void Initialize()
+    private System.Action onDestroyBrick;
+
+    public System.Action OnDestroyBrick => onDestroyBrick;
+
+    public void Initialize(Vector3 renderer, Transform transform)
     {
-        size = GetComponent<Renderer>().bounds.size;
+        size = renderer;
         position = transform.position;
+        brickGO = transform.gameObject;
     }
 
     public void DestroyBrick()
     {
         BrickManager.Instance.RemoveBrick(this);
-        Destroy(gameObject);
+        SetDestroyCallback(() => GameObject.Destroy(brickGO));
     }
     public bool CheckCollision(Vector2 ballPos, Vector2 ballSize)
     {
@@ -25,5 +29,10 @@ public class Brick : MonoBehaviour
         bool overlapY = Mathf.Abs(ballPos.y - position.y) < (ballSize.y / 2 + size.y / 2);
 
         return overlapX && overlapY;
+    }
+
+    public void SetDestroyCallback(System.Action _event)
+    {
+        onDestroyBrick = _event;
     }
 }

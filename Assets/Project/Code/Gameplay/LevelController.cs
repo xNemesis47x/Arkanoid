@@ -1,15 +1,17 @@
 using UnityEngine;
 
-public class LevelController : MonoBehaviour
+public class LevelController 
 {
     [Header("Referencias")]
-    [SerializeField] private PaddleController paddlePrefab;
-    [SerializeField] private Transform paddleSpawnPoint;
+    private GameObject paddlePrefab;
+    private Transform paddleSpawnPoint;
 
     private PaddleController currentPaddle;
 
-    private void Start()
+    public void Start()
     {
+        paddlePrefab = UpdateManager.Instance.paddlePrefab;
+        paddleSpawnPoint = UpdateManager.Instance.paddleSpawnPoint;
         Initialize();
         BrickManager.Instance.Initialize();
     }
@@ -18,8 +20,11 @@ public class LevelController : MonoBehaviour
     {
         if (paddlePrefab != null && paddleSpawnPoint != null)
         {
-            currentPaddle = Instantiate(paddlePrefab, paddleSpawnPoint.position, Quaternion.identity);
-            currentPaddle.Initialize();
+            GameObject paddleGO = GameObject.Instantiate(paddlePrefab, paddleSpawnPoint.position, Quaternion.identity);
+            Renderer paddleRenderer = paddleGO.GetComponent<Renderer>();
+
+            currentPaddle = new PaddleController();
+            currentPaddle.Initialize(paddleRenderer, paddleGO.transform);
         }
         else
         {

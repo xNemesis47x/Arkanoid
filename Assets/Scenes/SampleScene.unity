@@ -663,6 +663,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf4162855c5fcc24e8bec29e0af292d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ballPrefab: {fileID: 5825229810813210427, guid: 6622669b99558b242b5444e2265675a8, type: 3}
+  ballSpawnPoint: {fileID: 8119531071221155363, guid: 6622669b99558b242b5444e2265675a8, type: 3}
+  paddlePrefab: {fileID: 2994900055087329948, guid: e72ad595f75b389438d0c752d04845b5, type: 3}
+  paddleSpawnPoint: {fileID: 407052572}
+  brickPrefab: {fileID: 6423627448747013948, guid: 01a76d02e59fac547ad7345b159d173b, type: 3}
 --- !u!1 &1267411786
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,7 +879,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1757607522}
-  - component: {fileID: 1757607521}
   m_Layer: 0
   m_Name: BrickManager
   m_TagString: Untagged
@@ -882,24 +886,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1757607521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1757607520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae7034e9ac9573c48bf0fad02d606169, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  brickPrefab: {fileID: 6423627448747013948, guid: 01a76d02e59fac547ad7345b159d173b, type: 3}
-  rows: 5
-  columns: 10
-  brickWidth: 1.5
-  brickHeight: 0.7
-  spacing: 0.2
 --- !u!4 &1757607522
 Transform:
   m_ObjectHideFlags: 0
@@ -924,7 +910,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1884338714}
-  - component: {fileID: 1884338713}
   m_Layer: 0
   m_Name: LevelController
   m_TagString: Untagged
@@ -932,20 +917,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1884338713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1884338712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c223e10a4a4cc2f4f89c35bea8c9aed2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  paddlePrefab: {fileID: 7867203053974562506, guid: e72ad595f75b389438d0c752d04845b5, type: 3}
-  paddleSpawnPoint: {fileID: 407052572}
 --- !u!4 &1884338714
 Transform:
   m_ObjectHideFlags: 0
