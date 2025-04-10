@@ -64,7 +64,6 @@ public class PaddleController : IUpdatable
 
         if (currentBall != null && Input.GetKeyDown(KeyCode.Space) && !currentBall.IsLaunched)
         {
-            Debug.Log("Go");
             currentBall.Launch();
         }
 

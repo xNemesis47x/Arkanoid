@@ -63,7 +63,7 @@ public class BallController : IUpdatable
         }
 
         // Movimiento de la pelota si ya fue lanzada
-        Vector3 movement = (Vector3)(direction * speed * deltaTime);
+        Vector3 movement = (Vector3)(direction * (speed * deltaTime));
         pos += movement;
 
         // Colisión con la paleta (rebote)

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class UpdateManager : MonoBehaviour
 {
+    private static UpdateManager instance;
+
     public GameObject ballPrefab;
     public Transform ballSpawnPoint;
 
@@ -13,7 +15,6 @@ public class UpdateManager : MonoBehaviour
 
     LevelController levelController = new LevelController();
 
-    private static UpdateManager instance;
     public static UpdateManager Instance => instance;
 
     private readonly List<IUpdatable> updatables = new List<IUpdatable>();
@@ -41,9 +42,8 @@ public class UpdateManager : MonoBehaviour
     }
 
     // Este método reemplaza el Update global
-    private void LateUpdate()
+    private void Update()
     {
-
         float deltaTime = Time.deltaTime;
 
         // Agregar nuevos
@@ -54,6 +54,7 @@ public class UpdateManager : MonoBehaviour
                 if (updatable != null && !updatables.Contains(updatable))
                     updatables.Add(updatable);
             }
+
             toAdd.Clear();
         }
 
@@ -80,6 +81,11 @@ public class UpdateManager : MonoBehaviour
             }
             toRemove.Clear();
         }
+
+# if DEBUG_ON
+        Debug.Log("");
+#endif
+
     }
 
     // Registrar un objeto que implementa IUpdatable
