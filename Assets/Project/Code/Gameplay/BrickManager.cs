@@ -4,14 +4,8 @@ using UnityEngine;
 public class BrickManager 
 {
     public static BrickManager Instance = new ();
-    [SerializeField] private GameObject brickPrefab; // Asignalo en el inspector
-
-    [SerializeField] private int rows = 5;
-    [SerializeField] private int columns = 10;
-
-    [SerializeField] private float brickWidth = 1.5f;
-    [SerializeField] private float brickHeight = 0.7f;
-    [SerializeField] private float spacing = 0.2f;
+    private GameObject brickPrefab; // Asignalo en el inspector
+    private GameObject brickContainer; // Asignalo en el inspector
 
     [Header("Bricks")]
     private List<Brick> allBricks = new List<Brick>();
@@ -20,6 +14,7 @@ public class BrickManager
 
     public void Initialize()
     {
+        brickContainer = UpdateManager.Instance.brickContainer;
         brickPrefab = UpdateManager.Instance.brickPrefab;
         InitializeBricks();
     }
@@ -51,7 +46,7 @@ public class BrickManager
             for (int x = 0; x < columns; x++)
             {
                 Vector2 spawnPos = startPosition + new Vector2(x * spacingX, -y * spacingY);
-                GameObject brickGO = GameObject.Instantiate(brickPrefab, spawnPos, Quaternion.identity);
+                GameObject brickGO = GameObject.Instantiate(brickPrefab, spawnPos, Quaternion.identity, brickContainer.transform);
                 Brick brick = new ();
                 brick.Initialize(brickSize, brickGO.transform);
                 allBricks.Add(brick);

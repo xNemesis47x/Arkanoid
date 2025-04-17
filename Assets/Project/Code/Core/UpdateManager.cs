@@ -12,6 +12,7 @@ public class UpdateManager : MonoBehaviour
     public Transform paddleSpawnPoint;
 
     public GameObject brickPrefab;
+    public GameObject brickContainer;
 
     LevelController levelController = new LevelController();
 
@@ -83,10 +84,5 @@ public class UpdateManager : MonoBehaviour
         {
             updatables.Remove(updatable);
         }
-    }
-
-    public void ClearAll()
-    {
-        updatables.Clear();
     }
 }

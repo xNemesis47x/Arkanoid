@@ -624,6 +624,7 @@ MonoBehaviour:
   paddlePrefab: {fileID: 2994900055087329948, guid: e72ad595f75b389438d0c752d04845b5, type: 3}
   paddleSpawnPoint: {fileID: 407052572}
   brickPrefab: {fileID: 6423627448747013948, guid: 01a76d02e59fac547ad7345b159d173b, type: 3}
+  brickContainer: {fileID: 0}
 --- !u!1 &1267411786
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,6 +827,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316859807}
   m_CullTransparentMesh: 1
+--- !u!1 &2056887018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2056887019}
+  m_Layer: 0
+  m_Name: BirckContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2056887019
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056887018}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -836,3 +868,4 @@ SceneRoots:
   - {fileID: 1267411789}
   - {fileID: 1021930567}
   - {fileID: 407052572}
+  - {fileID: 2056887019}

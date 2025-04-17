@@ -1,5 +1,7 @@
+using TMPro.Examples;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BallController : IUpdatable
 {
@@ -14,6 +16,9 @@ public class BallController : IUpdatable
     private Transform ballTransform;
 
     public bool IsLaunched => isLaunched;
+
+    private int countBalls;
+    public int CountBalls { get => countBalls; set => countBalls = value; }
 
     public void SetDestroyCallback(System.Action _event)
     {
@@ -118,11 +123,14 @@ public class BallController : IUpdatable
             direction.y *= -1;
         }
 
-        if (pos.y <= -5f)
+        if (pos.y <= -5f && countBalls <= 1)
         {
-            Debug.Log("La pelota salió por abajo. Se destruye y se spawnea una nueva.");
+            isLaunched = false;
+            paddleOwner.SpawnMultiBall();
+        }
+        else if(pos.y <= -5f && countBalls > 1)
+        {
             Dispose();
-            paddleOwner.SpawnNewBall();
         }
     }
 
@@ -153,4 +161,5 @@ public class BallController : IUpdatable
             }
         }
     }
+
 }

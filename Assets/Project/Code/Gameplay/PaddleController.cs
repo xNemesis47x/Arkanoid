@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PaddleController : IUpdatable
@@ -18,8 +19,9 @@ public class PaddleController : IUpdatable
     private System.Action onDestroyCallback;
 
     public Vector3 Size => size;
-
     public Vector3 Position => position;
+
+    private List<BallController> activeBalls = new List<BallController>();
 
     public void Initialize(Renderer rendererFake, Transform transform)
     {
@@ -44,35 +46,26 @@ public class PaddleController : IUpdatable
         SpawnNewBall();
     }
 
-    public void Dispose()
-    {
-        UpdateManager.Instance.Unregister(this);
-
-        if (currentBall != null)
-        {
-            currentBall.Dispose();
-        }
-
-        onDestroyCallback?.Invoke();
-    }
-
     public void CustomUpdate(float deltaTime)
     {
         float input = Input.GetAxisRaw("Horizontal");
         Vector3 movement = new (input * speed * deltaTime, 0f, 0f);
         position += movement;
 
-        if (currentBall != null && Input.GetKeyDown(KeyCode.Space) && !currentBall.IsLaunched)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            currentBall.Launch();
+            foreach (BallController ball in activeBalls)
+            {
+                if (!ball.IsLaunched)
+                    ball.Launch();
+            }
         }
 
         paddleTransform.position = position;
-
         HandleScreenBounds();
     }
 
-    public void SpawnNewBall()
+    private void SpawnNewBall()
     {
         if (ballPrefab == null || ballSpawnPoint == null)
         {
@@ -81,10 +74,28 @@ public class PaddleController : IUpdatable
         }
 
         GameObject newBallGO = GameObject.Instantiate(ballPrefab, position, Quaternion.identity);
-        Vector3 ballSize = new Vector3(0.5f, 0.5f, 0f); // o lo que uses
+        Vector3 ballSize = new Vector3(0.5f, 0.5f, 0f); 
         currentBall.Initialize(this, ballSize, newBallGO.transform);
+        currentBall.CountBalls++;
+        activeBalls.Add(currentBall);
+    }
 
-        currentBall.SetDestroyCallback(() => GameObject.Destroy(newBallGO));
+    public void SpawnMultiBall()
+    {
+        GameObject newBallGO = GameObject.Instantiate(ballPrefab, position, Quaternion.identity);
+        Vector3 ballSize = new Vector3(0.5f, 0.5f, 0f);
+
+        BallController ball = new BallController();
+        ball.Initialize(this, ballSize, newBallGO.transform);
+        ball.Launch();
+        ball.CountBalls = activeBalls.Count + 1; // o manejalo según quieras contar
+
+        ball.SetDestroyCallback(() => {
+            GameObject.Destroy(newBallGO);
+            activeBalls.Remove(ball);
+        });
+
+        activeBalls.Add(ball);
     }
 
     private void HandleScreenBounds()
