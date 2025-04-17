@@ -17,9 +17,9 @@ public class UpdateManager : MonoBehaviour
 
     public static UpdateManager Instance => instance;
 
-    private readonly List<IUpdatable> updatables = new List<IUpdatable>();
-    private List<IUpdatable> toAdd = new List<IUpdatable>();
-    private List<IUpdatable> toRemove = new List<IUpdatable>();
+    private List<IUpdatable> updatables = new List<IUpdatable>();
+
+    public List<IUpdatable> Updatables { get => updatables; set => updatables = value; }
 
     private void Awake()
     {
@@ -46,18 +46,6 @@ public class UpdateManager : MonoBehaviour
     {
         float deltaTime = Time.deltaTime;
 
-        // Agregar nuevos
-        if (toAdd.Count > 0)
-        {
-            foreach (IUpdatable updatable in toAdd)
-            {
-                if (updatable != null && !updatables.Contains(updatable))
-                    updatables.Add(updatable);
-            }
-
-            toAdd.Clear();
-        }
-
         // Ejecutar CustomUpdate y remover los null automáticamente
         for (int i = updatables.Count - 1; i >= 0; i--)
         {
@@ -72,15 +60,6 @@ public class UpdateManager : MonoBehaviour
             }
         }
 
-        // Limpiar los que se pidieron quitar explícitamente
-        if (toRemove.Count > 0)
-        {
-            foreach (IUpdatable obj in toRemove)
-            {
-                updatables.Remove(obj);
-            }
-            toRemove.Clear();
-        }
 
 # if DEBUG_ON
         Debug.Log("");
@@ -91,30 +70,23 @@ public class UpdateManager : MonoBehaviour
     // Registrar un objeto que implementa IUpdatable
     public void Register(IUpdatable updatable)
     {
-        if (!toAdd.Contains(updatable))
+        if (!updatables.Contains(updatable) && updatable != null)
         {
-            toAdd.Add(updatable);
+            updatables.Add(updatable);
         }
     }
 
     // Quitar un objeto
     public void Unregister(IUpdatable updatable)
     {
-        if (!toRemove.Contains(updatable))
+        if (updatables.Contains(updatable) && updatable != null)
         {
-            toRemove.Add(updatable);
+            updatables.Remove(updatable);
         }
     }
 
     public void ClearAll()
     {
         updatables.Clear();
-        toAdd.Clear();
-        toRemove.Clear();
-    }
-
-    public void DestoyThis(Object obj)
-    {
-        Destroy(obj);
     }
 }

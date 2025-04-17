@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BallController : IUpdatable
@@ -76,12 +77,23 @@ public class BallController : IUpdatable
 
         if (isOverlappingX && isOverlappingY && direction.y < 0f)
         {
-            direction.y *= -1f;
+            Vector2 paddlePos = paddleOwner.Position;
+            Vector2 paddleSize = paddleOwner.Size;
 
-            // Modificar dirección X según impacto
-            float offset = (ballPos.x - paddlePosRebote.x) / (paddleSizeRebote.x / 2f);
-            direction.x = offset;
-            direction = direction.normalized;
+            float overlapX = (paddleSize.x / 2f + size.x / 2f) - Mathf.Abs(pos.x - paddlePos.x);
+            float overlapY = (paddleSize.y / 2f + size.y / 2f) - Mathf.Abs(pos.y - paddlePos.y);
+
+            if (overlapX < overlapY)
+                direction.x *= -1;
+            else
+            {
+                direction.y *= -1f;
+
+                // Modificar dirección X según impacto
+                float offset = (ballPos.x - paddlePosRebote.x) / (paddleSizeRebote.x / 2f);
+                direction.x = offset;
+                direction = direction.normalized;
+            }
 
             Debug.Log("¡Pelota rebotó con la paleta!");
         }
@@ -113,13 +125,28 @@ public class BallController : IUpdatable
             paddleOwner.SpawnNewBall();
         }
     }
+
     private void HandleBrickCollision()
     {
         foreach (Brick brick in BrickManager.Instance.Bricks)
         {
             if (brick != null && brick.CheckCollision(pos, size))
             {
-                direction.y *= -1;
+                Vector2 brickPos = brick.Position;
+                Vector2 brickSize = brick.Size;
+
+                float overlapX = (brickSize.x / 2f + size.x / 2f) - Mathf.Abs(pos.x - brickPos.x);
+                float overlapY = (brickSize.y / 2f + size.y / 2f) - Mathf.Abs(pos.y - brickPos.y);
+
+                if (overlapX < overlapY)
+                {
+                    direction.x *= -1;
+                }
+                else
+                {
+                    direction.y *= -1;
+                }
+
                 brick.DestroyBrick();
                 brick.OnDestroyBrick?.Invoke();
                 break;

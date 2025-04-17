@@ -5,6 +5,9 @@ public class Brick
     private Vector2 size;
     private Vector2 position;
 
+    public Vector2 Size => size;
+    public Vector2 Position => position;
+
     private GameObject brickGO;
 
     private System.Action onDestroyBrick;
@@ -23,6 +26,7 @@ public class Brick
         BrickManager.Instance.RemoveBrick(this);
         SetDestroyCallback(() => GameObject.Destroy(brickGO));
     }
+
     public bool CheckCollision(Vector2 ballPos, Vector2 ballSize)
     {
         bool overlapX = Mathf.Abs(ballPos.x - position.x) < (ballSize.x / 2 + size.x / 2);

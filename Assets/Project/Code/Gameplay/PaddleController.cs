@@ -68,6 +68,8 @@ public class PaddleController : IUpdatable
         }
 
         paddleTransform.position = position;
+
+        HandleScreenBounds();
     }
 
     public void SpawnNewBall()
@@ -83,5 +85,20 @@ public class PaddleController : IUpdatable
         currentBall.Initialize(this, ballSize, newBallGO.transform);
 
         currentBall.SetDestroyCallback(() => GameObject.Destroy(newBallGO));
+    }
+
+    private void HandleScreenBounds()
+    {
+        Vector2 pos = this.position;
+
+        if (pos.x <= -9f)
+        {
+            position.x = -9f;
+        }
+
+        if (pos.x >= 9f)
+        {
+            position.x = 9f;
+        }
     }
 }
