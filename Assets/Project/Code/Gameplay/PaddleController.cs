@@ -22,6 +22,8 @@ public class PaddleController : IUpdatable
     public Vector3 Position => position;
 
     private List<BallController> activeBalls = new List<BallController>();
+    public List<BallController> ActiveBalls { get => activeBalls; set => activeBalls = value; }
+
 
     public void Initialize(Renderer rendererFake, Transform transform)
     {
@@ -54,7 +56,7 @@ public class PaddleController : IUpdatable
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            foreach (BallController ball in activeBalls)
+            foreach (BallController ball in ActiveBalls)
             {
                 if (!ball.IsLaunched)
                     ball.Launch();
@@ -77,25 +79,7 @@ public class PaddleController : IUpdatable
         Vector3 ballSize = new Vector3(0.5f, 0.5f, 0f); 
         currentBall.Initialize(this, ballSize, newBallGO.transform);
         currentBall.CountBalls++;
-        activeBalls.Add(currentBall);
-    }
-
-    public void SpawnMultiBall()
-    {
-        GameObject newBallGO = GameObject.Instantiate(ballPrefab, position, Quaternion.identity);
-        Vector3 ballSize = new Vector3(0.5f, 0.5f, 0f);
-
-        BallController ball = new BallController();
-        ball.Initialize(this, ballSize, newBallGO.transform);
-        ball.Launch();
-        ball.CountBalls = activeBalls.Count + 1; // o manejalo según quieras contar
-
-        ball.SetDestroyCallback(() => {
-            GameObject.Destroy(newBallGO);
-            activeBalls.Remove(ball);
-        });
-
-        activeBalls.Add(ball);
+        ActiveBalls.Add(currentBall);
     }
 
     private void HandleScreenBounds()

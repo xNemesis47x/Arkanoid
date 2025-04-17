@@ -4,12 +4,11 @@ using UnityEngine;
 public class BrickManager 
 {
     public static BrickManager Instance = new ();
-    private GameObject brickPrefab; // Asignalo en el inspector
-    private GameObject brickContainer; // Asignalo en el inspector
+    private GameObject brickPrefab; 
+    private GameObject brickContainer; 
 
     [Header("Bricks")]
     private List<Brick> allBricks = new List<Brick>();
-
     public List<Brick> Bricks => allBricks;
 
     public void Initialize()
@@ -48,7 +47,8 @@ public class BrickManager
                 Vector2 spawnPos = startPosition + new Vector2(x * spacingX, -y * spacingY);
                 GameObject brickGO = GameObject.Instantiate(brickPrefab, spawnPos, Quaternion.identity, brickContainer.transform);
                 Brick brick = new ();
-                brick.Initialize(brickSize, brickGO.transform);
+                bool containsPowerUp = Random.value < 0.1f; // 10% chance
+                brick.Initialize(brickSize, brickGO.transform, containsPowerUp);
                 allBricks.Add(brick);
             }
         }

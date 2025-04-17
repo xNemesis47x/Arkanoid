@@ -11,20 +11,39 @@ public class Brick
     private GameObject brickGO;
 
     private System.Action onDestroyBrick;
-
     public System.Action OnDestroyBrick => onDestroyBrick;
 
-    public void Initialize(Vector3 renderer, Transform transform)
+    bool isPowerUp;
+
+    public void Initialize(Vector3 renderer, Transform transform, bool containsPowerUp = false)
     {
         size = renderer;
         position = transform.position;
         brickGO = transform.gameObject;
+        isPowerUp = containsPowerUp;
     }
 
     public void DestroyBrick()
     {
+        if (isPowerUp)
+        {
+            SpawnPowerUp();
+        }
+
         BrickManager.Instance.RemoveBrick(this);
         SetDestroyCallback(() => GameObject.Destroy(brickGO));
+    }
+
+    private void SpawnPowerUp()
+    {
+        GameObject powerUpPrefab = UpdateManager.Instance.powerUpPrefab; 
+        GameObject powerUpGO = GameObject.Instantiate(powerUpPrefab, position, Quaternion.identity);
+        PowerUp powerUp = new PowerUp(powerUpGO.transform, new Vector2(0.5f, 0.5f)); 
+
+        powerUp.SetOnCollectedCallback(() => {
+            MultiBall multiBall = new MultiBall(UpdateManager.Instance.GetPaddle());
+            multiBall.SpawnMultiBall();
+        });
     }
 
     public bool CheckCollision(Vector2 ballPos, Vector2 ballSize)

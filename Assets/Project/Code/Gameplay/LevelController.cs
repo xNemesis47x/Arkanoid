@@ -7,11 +7,12 @@ public class LevelController
     private Transform paddleSpawnPoint;
 
     private PaddleController currentPaddle;
+    public PaddleController CurrentPaddle => currentPaddle;
 
-    public void Start()
+    public void Start(GameObject paddleGM, Transform paddleSpawn)
     {
-        paddlePrefab = UpdateManager.Instance.paddlePrefab;
-        paddleSpawnPoint = UpdateManager.Instance.paddleSpawnPoint;
+        paddlePrefab = paddleGM;
+        paddleSpawnPoint = paddleSpawn;
         Initialize();
         BrickManager.Instance.Initialize();
     }

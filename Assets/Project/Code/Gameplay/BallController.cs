@@ -1,7 +1,4 @@
-using TMPro.Examples;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class BallController : IUpdatable
 {
@@ -126,7 +123,6 @@ public class BallController : IUpdatable
         if (pos.y <= -5f && countBalls <= 1)
         {
             isLaunched = false;
-            paddleOwner.SpawnMultiBall();
         }
         else if(pos.y <= -5f && countBalls > 1)
         {

@@ -14,13 +14,13 @@ public class UpdateManager : MonoBehaviour
     public GameObject brickPrefab;
     public GameObject brickContainer;
 
+    public GameObject powerUpPrefab;
+
     LevelController levelController = new LevelController();
 
     public static UpdateManager Instance => instance;
 
     private List<IUpdatable> updatables = new List<IUpdatable>();
-
-    public List<IUpdatable> Updatables { get => updatables; set => updatables = value; }
 
     private void Awake()
     {
@@ -39,7 +39,7 @@ public class UpdateManager : MonoBehaviour
 
     private void Start()
     {
-        levelController.Start();
+        levelController.Start(paddlePrefab, paddleSpawnPoint);
     }
 
     // Este método reemplaza el Update global
@@ -61,7 +61,7 @@ public class UpdateManager : MonoBehaviour
             }
         }
 
-
+//no darle bola a esto
 # if DEBUG_ON
         Debug.Log("");
 #endif
@@ -84,5 +84,10 @@ public class UpdateManager : MonoBehaviour
         {
             updatables.Remove(updatable);
         }
+    }
+
+    public PaddleController GetPaddle()
+    {
+        return levelController.CurrentPaddle;
     }
 }
