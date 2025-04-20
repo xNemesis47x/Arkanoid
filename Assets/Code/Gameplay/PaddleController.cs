@@ -8,15 +8,12 @@ public class PaddleController : IUpdatable
 
     [Header("Pelota")]
     private GameObject ballPrefab;
-    private Transform ballSpawnPoint;
+    private Transform ballContainer;
 
-    private BallController currentBall;
     private Vector3 size;
     private Vector3 position;
 
     private Transform paddleTransform;
-
-    private System.Action onDestroyCallback;
 
     public Vector3 Size => size;
     public Vector3 Position => position;
@@ -24,14 +21,17 @@ public class PaddleController : IUpdatable
     private List<BallController> activeBalls = new List<BallController>();
     public List<BallController> ActiveBalls { get => activeBalls; set => activeBalls = value; }
 
+    public Queue<GameObject> InactiveObjectBalls { get; private set; }
 
-    public void Initialize(Renderer rendererFake, Transform transform)
+    public UpdateManager updateManager { get; private set; }
+
+    public void Initialize(Renderer rendererFake, Transform transform, UpdateManager currentUM)
     {
-        ballPrefab = UpdateManager.Instance.ballPrefab;
-        ballSpawnPoint = UpdateManager.Instance.ballSpawnPoint;
+        ballContainer = currentUM.ballContainer;
+        ballPrefab = currentUM.ballPrefab;
         Renderer rend = rendererFake;
         paddleTransform = transform;
-        currentBall = new BallController();
+        InactiveObjectBalls = new Queue<GameObject>();
 
         if (rend != null)
         {
@@ -44,14 +44,15 @@ public class PaddleController : IUpdatable
 
         position = paddleTransform.position;
 
-        UpdateManager.Instance.Register(this);
+        currentUM.Register(this);
+        updateManager = currentUM;
         SpawnNewBall();
     }
 
     public void CustomUpdate(float deltaTime)
     {
         float input = Input.GetAxisRaw("Horizontal");
-        Vector3 movement = new (input * speed * deltaTime, 0f, 0f);
+        Vector3 movement = new(input * speed * deltaTime, 0f, 0f);
         position += movement;
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -67,19 +68,47 @@ public class PaddleController : IUpdatable
         HandleScreenBounds();
     }
 
-    private void SpawnNewBall()
+    private GameObject SpawnNewBall()
     {
-        if (ballPrefab == null || ballSpawnPoint == null)
+        if (ballPrefab == null)
         {
-            Debug.LogError("Falta asignar prefab o punto de spawn en el Paddle");
-            return;
+            Debug.LogError("Falta asignar prefab");
+            return null;
         }
 
-        GameObject newBallGO = GameObject.Instantiate(ballPrefab, position, Quaternion.identity);
-        Vector3 ballSize = new Vector3(0.5f, 0.5f, 0f); 
-        currentBall.Initialize(this, ballSize, newBallGO.transform);
-        currentBall.CountBalls++;
-        ActiveBalls.Add(currentBall);
+        GameObject newBallGO = GetBall();
+        Vector3 ballSize = new Vector3(0.5f, 0.5f, 0f);
+
+        BallController ball = new BallController();
+        ball.Initialize(this, ballSize, newBallGO.transform);
+
+        ball.SetDestroyCallback(() =>
+        {
+            newBallGO.SetActive(false);
+            InactiveObjectBalls.Enqueue(newBallGO);
+            activeBalls.Remove(ball);
+        });
+
+        ActiveBalls.Add(ball);
+
+        return newBallGO;
+    }
+
+    public GameObject GetBall()
+    {
+        if (InactiveObjectBalls.Count > 0)
+        {
+            foreach (GameObject ball in InactiveObjectBalls)
+            {
+                if (!ball.activeInHierarchy)
+                {
+                    ball.SetActive(true);
+                    return ball;
+                }
+            }
+        }
+        
+        return GameObject.Instantiate(ballPrefab, position, Quaternion.identity, ballContainer);
     }
 
     private void HandleScreenBounds()

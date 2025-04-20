@@ -9,39 +9,45 @@ public class Brick
     public Vector2 Position => position;
 
     private GameObject brickGO;
-
-    private System.Action onDestroyBrick;
-    public System.Action OnDestroyBrick => onDestroyBrick;
+    public System.Action OnDesactivateBrick { get; private set;} 
 
     bool isPowerUp;
 
-    public void Initialize(Vector3 renderer, Transform transform, bool containsPowerUp = false)
+    BrickManager brickManager;
+
+    UpdateManager updateManager;
+
+    public void Initialize(Vector3 renderer, Transform transform, BrickManager currentBrickManager, UpdateManager currentUM, bool containsPowerUp = false)
     {
         size = renderer;
         position = transform.position;
         brickGO = transform.gameObject;
         isPowerUp = containsPowerUp;
+        brickManager = currentBrickManager;
+
+        updateManager = currentUM;
     }
 
-    public void DestroyBrick()
+    public void DesactivateBrick()
     {
         if (isPowerUp)
         {
             SpawnPowerUp();
         }
 
-        BrickManager.Instance.RemoveBrick(this);
-        SetDestroyCallback(() => GameObject.Destroy(brickGO));
+        brickManager.RemoveBrick(this);
+        brickGO.SetActive(false);
+        brickManager.InactiveBrick.Enqueue(brickGO);
     }
 
     private void SpawnPowerUp()
     {
-        GameObject powerUpPrefab = UpdateManager.Instance.powerUpPrefab; 
+        GameObject powerUpPrefab = updateManager.powerUpPrefab; 
         GameObject powerUpGO = GameObject.Instantiate(powerUpPrefab, position, Quaternion.identity);
-        PowerUp powerUp = new PowerUp(powerUpGO.transform, new Vector2(0.5f, 0.5f)); 
+        PowerUp powerUp = new PowerUp(powerUpGO.transform, new Vector2(0.5f, 0.5f), updateManager); 
 
         powerUp.SetOnCollectedCallback(() => {
-            MultiBall multiBall = new MultiBall(UpdateManager.Instance.GetPaddle());
+            MultiBall multiBall = new MultiBall(updateManager.GetPaddle());
             multiBall.SpawnMultiBall();
         });
     }
@@ -52,10 +58,5 @@ public class Brick
         bool overlapY = Mathf.Abs(ballPos.y - position.y) < (ballSize.y / 2 + size.y / 2);
 
         return overlapX && overlapY;
-    }
-
-    public void SetDestroyCallback(System.Action _event)
-    {
-        onDestroyBrick = _event;
     }
 }

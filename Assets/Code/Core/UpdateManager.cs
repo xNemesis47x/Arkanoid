@@ -3,35 +3,33 @@ using UnityEngine;
 
 public class UpdateManager : MonoBehaviour
 {
-    private static UpdateManager instance;
-
     public GameObject ballPrefab;
-    public Transform ballSpawnPoint;
+    public Transform ballContainer;
 
     public GameObject paddlePrefab;
     public Transform paddleSpawnPoint;
 
     public GameObject brickPrefab;
-    public GameObject brickContainer;
+    public Transform brickContainer;
 
     public GameObject powerUpPrefab;
 
     LevelController levelController = new LevelController();
 
-    public static UpdateManager Instance => instance;
+    private UpdateManager Instance;
 
     private List<IUpdatable> updatables = new List<IUpdatable>();
 
     private void Awake()
     {
         //Se crea el manager
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
-        instance = this;
+        Instance = this;
         DontDestroyOnLoad(gameObject); // persiste entre escenas si querés
 
         Debug.Log("UpdateManager inicializado");
@@ -39,7 +37,7 @@ public class UpdateManager : MonoBehaviour
 
     private void Start()
     {
-        levelController.Start(paddlePrefab, paddleSpawnPoint);
+        levelController.Start(paddlePrefab, paddleSpawnPoint, Instance);
     }
 
     // Este método reemplaza el Update global
@@ -63,7 +61,7 @@ public class UpdateManager : MonoBehaviour
 
 //no darle bola a esto
 # if DEBUG_ON
-        Debug.Log("");
+        //Debug.Log("");
 #endif
 
     }

@@ -14,9 +14,6 @@ public class BallController : IUpdatable
 
     public bool IsLaunched => isLaunched;
 
-    private int countBalls;
-    public int CountBalls { get => countBalls; set => countBalls = value; }
-
     public void SetDestroyCallback(System.Action _event)
     {
         onDestroyBall = _event;
@@ -33,13 +30,13 @@ public class BallController : IUpdatable
 
         ballTransform.position = pos;
 
-        UpdateManager.Instance.Register(this);
+        paddleOwner.updateManager.Register(this);
     }
 
     //Lo suma a la lista de objetos a eliminar 
     public void Dispose()
     {
-        UpdateManager.Instance.Unregister(this);
+        paddleOwner.updateManager.Unregister(this);
         Debug.Log("Pelota eliminada y desregistrada del UpdateManager.");
         onDestroyBall?.Invoke();
     }
@@ -71,11 +68,11 @@ public class BallController : IUpdatable
 
         // Colisión con la paleta (rebote)
         Vector2 ballPos = pos;
-        Vector2 paddlePosRebote = paddleOwner.Position;
-        Vector2 paddleSizeRebote = paddleOwner.Size;
+        Vector2 paddlePosRebound = paddleOwner.Position;
+        Vector2 paddleSizeRebound = paddleOwner.Size;
 
-        bool isOverlappingX = Mathf.Abs(ballPos.x - paddlePosRebote.x) < (size.x / 2f + paddleSizeRebote.x / 2f);
-        bool isOverlappingY = Mathf.Abs(ballPos.y - paddlePosRebote.y) < (size.y / 2f + paddleSizeRebote.y / 2f);
+        bool isOverlappingX = Mathf.Abs(ballPos.x - paddlePosRebound.x) < (size.x / 2f + paddleSizeRebound.x / 2f);
+        bool isOverlappingY = Mathf.Abs(ballPos.y - paddlePosRebound.y) < (size.y / 2f + paddleSizeRebound.y / 2f);
 
         if (isOverlappingX && isOverlappingY && direction.y < 0f)
         {
@@ -92,12 +89,10 @@ public class BallController : IUpdatable
                 direction.y *= -1f;
 
                 // Modificar dirección X según impacto
-                float offset = (ballPos.x - paddlePosRebote.x) / (paddleSizeRebote.x / 2f);
+                float offset = (ballPos.x - paddlePosRebound.x) / (paddleSizeRebound.x / 2f);
                 direction.x = offset;
                 direction = direction.normalized;
             }
-
-            Debug.Log("¡Pelota rebotó con la paleta!");
         }
 
         HandleScreenBounds();
@@ -120,11 +115,11 @@ public class BallController : IUpdatable
             direction.y *= -1;
         }
 
-        if (pos.y <= -5f && countBalls <= 1)
+        if (pos.y <= -5f && paddleOwner.ActiveBalls.Count <= 1)
         {
-            isLaunched = false;
+            this.isLaunched = false;
         }
-        else if(pos.y <= -5f && countBalls > 1)
+        else if(pos.y <= -5f && paddleOwner.ActiveBalls.Count > 1)
         {
             Dispose();
         }
@@ -151,8 +146,8 @@ public class BallController : IUpdatable
                     direction.y *= -1;
                 }
 
-                brick.DestroyBrick();
-                brick.OnDestroyBrick?.Invoke();
+                brick.DesactivateBrick();
+                brick.OnDesactivateBrick?.Invoke();
                 break;
             }
         }

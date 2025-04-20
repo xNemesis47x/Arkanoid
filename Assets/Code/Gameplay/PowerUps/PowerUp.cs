@@ -8,11 +8,15 @@ public class PowerUp : IUpdatable
     private System.Action onCollected;
     private bool isCollected = false;
 
-    public PowerUp(Transform powerUpTransform, Vector2 powerUpSize)
+    UpdateManager updateManager;
+
+    public PowerUp(Transform powerUpTransform, Vector2 powerUpSize, UpdateManager currentUM)
     {
         transform = powerUpTransform;
         size = powerUpSize;
-        UpdateManager.Instance.Register(this);
+        currentUM.Register(this);
+
+        updateManager = currentUM;
     }
 
     public void CustomUpdate(float deltaTime)
@@ -21,7 +25,7 @@ public class PowerUp : IUpdatable
 
         transform.position += Vector3.down * fallSpeed * deltaTime;
 
-        PaddleController paddle = UpdateManager.Instance.GetPaddle(); // Ahora te digo cómo hacer este método
+        PaddleController paddle = updateManager.GetPaddle(); 
         if (paddle != null)
         {
             if (CheckCollision(transform.position, size, paddle.Position, paddle.Size))
@@ -29,7 +33,12 @@ public class PowerUp : IUpdatable
                 isCollected = true;
                 onCollected?.Invoke();
                 GameObject.Destroy(transform.gameObject);
-                UpdateManager.Instance.Unregister(this);
+                updateManager.Unregister(this);
+            }
+            else if(transform.position.y < -5f)
+            {
+                GameObject.Destroy(transform.gameObject);
+                updateManager.Unregister(this);
             }
         }
     }

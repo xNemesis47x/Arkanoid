@@ -9,12 +9,15 @@ public class LevelController
     private PaddleController currentPaddle;
     public PaddleController CurrentPaddle => currentPaddle;
 
-    public void Start(GameObject paddleGM, Transform paddleSpawn)
+    UpdateManager updateManager;
+
+    public void Start(GameObject paddleGM, Transform paddleSpawn, UpdateManager currentUM)
     {
+        updateManager = currentUM;
         paddlePrefab = paddleGM;
         paddleSpawnPoint = paddleSpawn;
         Initialize();
-        BrickManager.Instance.Initialize();
+        BrickManager.Instance.Initialize(currentUM);
     }
 
     public void Initialize()
@@ -25,7 +28,7 @@ public class LevelController
             Renderer paddleRenderer = paddleGO.GetComponent<Renderer>();
 
             currentPaddle = new PaddleController();
-            currentPaddle.Initialize(paddleRenderer, paddleGO.transform);
+            currentPaddle.Initialize(paddleRenderer, paddleGO.transform, updateManager);
         }
         else
         {
