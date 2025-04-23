@@ -1,7 +1,9 @@
+using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image winScreen;
     [SerializeField] Image defeatScreen;
     [SerializeField] Image pauseScreen;
+    [SerializeField] VideoPlayer videoController;
 
     [Header("Textos")]
     [SerializeField] TMP_Text livesText;
@@ -39,7 +42,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         currentModel = new UIModel(updateManager.LevelController);
-        currentView = new UIView(livesText, levelsText, pointsText, menuScreen, winScreen, defeatScreen, pauseScreen);
+        currentView = new UIView(livesText, levelsText, pointsText, menuScreen, winScreen, defeatScreen, pauseScreen, videoController);
 
         currentController = new UIController(currentModel, currentView);
     }
@@ -47,6 +50,12 @@ public class UIManager : MonoBehaviour
     public void Menu()
     {
         currentController.Menu();
+    }
+
+    public void SplashScreen()
+    {
+        currentController.SplashScreen();
+        StartCoroutine(SplashCoroutine());
     }
 
     public void Game()
@@ -82,5 +91,23 @@ public class UIManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    private IEnumerator SplashCoroutine()
+    {
+        float timeout = 1f;
+        float elapsed = 0f;
+        while (!videoController.isPlaying && elapsed < timeout)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        while (videoController.isPlaying)
+        {
+            yield return null;
+        }
+
+        currentController.Menu();
     }
 }

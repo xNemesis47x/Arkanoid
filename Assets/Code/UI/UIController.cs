@@ -11,12 +11,19 @@ public class UIController
         view = currentView;
     }
 
+    public void SplashScreen()
+    {
+        view.ShowSplashScreen(true);
+        view.ShowMenuScreen(false);
+    }
+
     public void Menu()
     {
         view.ShowMenuScreen(true);
         view.ShowWinScreen(false);
         view.ShowDefeatScreen(false);
         view.ShowPauseScreen(false);
+        view.ShowSplashScreen(false);
     }
 
     public void Gameplay()
@@ -61,3 +68,4 @@ public class UIController
         view.ShowPauseScreen(true);
     }
 }
+

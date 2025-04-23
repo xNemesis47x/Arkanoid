@@ -42,6 +42,8 @@ public class UpdateManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         LevelController.Start(paddlePrefab, paddleSpawnPoint, Instance);
+
+        UIManager.Instance.SplashScreen();
     }
 
     // Este método reemplaza el Update global
