@@ -36,6 +36,7 @@ public class Brick
             SpawnPowerUp();
         }
 
+        updateManager.LevelController.countPoints += 10;
         IsActive = false;
         BrickObject.SetActive(false);
         brickManager.InactiveBrick.Enqueue(BrickObject);

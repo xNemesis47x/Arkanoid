@@ -51,7 +51,7 @@ public class BallController : IUpdatable
 
     public void CustomUpdate(float deltaTime)
     {
-        if (!isLaunched)
+        if (!isLaunched && paddleOwner.ActiveBalls.Count <= 1)
         {
             // Seguir la posición de la paleta (centrado en X, justo arriba en Y)
             Vector2 paddlePos = paddleOwner.Position;

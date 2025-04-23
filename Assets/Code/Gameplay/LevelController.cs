@@ -12,7 +12,7 @@ public class LevelController
     UpdateManager updateManager;
 
     private int countLevels;
-    private int countPoints;
+    public int countPoints { get; set; }
 
     public void Start(GameObject paddleGM, Transform paddleSpawn, UpdateManager currentUM)
     {

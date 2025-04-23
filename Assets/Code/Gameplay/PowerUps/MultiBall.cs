@@ -11,7 +11,7 @@ public class MultiBall
 
     public void SpawnMultiBall()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 2; i++)
         {
             GameObject newBallGO = paddleController.GetBall();
             Vector3 ballSize = new Vector3(0.5f, 0.5f, 0f);
