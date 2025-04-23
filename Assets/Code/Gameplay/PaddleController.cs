@@ -121,14 +121,14 @@ public class PaddleController : IUpdatable
     {
         Vector2 pos = this.position;
 
-        if (pos.x <= -9f)
+        if (pos.x <= -8.5f)
         {
-            position.x = -9f;
+            position.x = -8.5f;
         }
 
-        if (pos.x >= 9f)
+        if (pos.x >= 8.5f)
         {
-            position.x = 9f;
+            position.x = 8.5f;
         }
     }
 

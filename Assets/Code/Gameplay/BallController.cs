@@ -105,12 +105,12 @@ public class BallController : IUpdatable
     {
         Vector2 pos = this.pos;
 
-        if (pos.x <= -10f || pos.x >= 10f)
+        if (pos.x <= -9.7f || pos.x >= 9.7f)
         {
             direction.x *= -1;
         }
 
-        if (pos.y >= 5.7f)
+        if (pos.y >= 5f)
         {
             direction.y *= -1;
         }

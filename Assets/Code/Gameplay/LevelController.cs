@@ -29,7 +29,7 @@ public class LevelController
     {
         if (paddlePrefab != null && paddleSpawnPoint != null && currentPaddle == null)
         {
-            GameObject paddleGO = GameObject.Instantiate(paddlePrefab, paddleSpawnPoint.position, Quaternion.identity);
+            GameObject paddleGO = GameObject.Instantiate(paddlePrefab, paddleSpawnPoint.position, paddleSpawnPoint.rotation);
             Renderer paddleRenderer = paddleGO.GetComponent<Renderer>();
 
             currentPaddle = new PaddleController();

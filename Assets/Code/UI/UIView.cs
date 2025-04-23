@@ -26,7 +26,7 @@ public class UIView
 
     public void ShowLives(int lives)
     {
-        livesText.text = $"Lives: {lives}";
+        livesText.text = $"{lives}";
     }
 
     public void ShowLevels(int level)
