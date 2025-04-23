@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PaddleController : IUpdatable
 {
+    public int Lives { get; set; }
+
     [Header("Movimiento")]
     private float speed = 10f;
 
@@ -27,6 +29,7 @@ public class PaddleController : IUpdatable
 
     public void Initialize(Renderer rendererFake, Transform transform, UpdateManager currentUM)
     {
+        Lives = 3;
         ballContainer = currentUM.ballContainer;
         ballPrefab = currentUM.ballPrefab;
         Renderer rend = rendererFake;
@@ -47,6 +50,8 @@ public class PaddleController : IUpdatable
         currentUM.Register(this);
         updateManager = currentUM;
         SpawnNewBall();
+
+        updateManager.OnRestartGame += RestartBalls;
     }
 
     public void CustomUpdate(float deltaTime)
@@ -55,7 +60,7 @@ public class PaddleController : IUpdatable
         Vector3 movement = new(input * speed * deltaTime, 0f, 0f);
         position += movement;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && Time.timeScale != 0f)
         {
             foreach (BallController ball in ActiveBalls)
             {
@@ -68,7 +73,7 @@ public class PaddleController : IUpdatable
         HandleScreenBounds();
     }
 
-    private GameObject SpawnNewBall()
+    public GameObject SpawnNewBall()
     {
         if (ballPrefab == null)
         {
@@ -81,6 +86,7 @@ public class PaddleController : IUpdatable
 
         BallController ball = new BallController();
         ball.Initialize(this, ballSize, newBallGO.transform);
+
 
         ball.SetDestroyCallback(() =>
         {
@@ -107,7 +113,7 @@ public class PaddleController : IUpdatable
                 }
             }
         }
-        
+
         return GameObject.Instantiate(ballPrefab, position, Quaternion.identity, ballContainer);
     }
 
@@ -124,5 +130,23 @@ public class PaddleController : IUpdatable
         {
             position.x = 9f;
         }
+    }
+
+    public void CheckDefeat()
+    {
+        if (Lives == 0)
+        {
+            updateManager.PauseGame();
+            UIManager.Instance.ShowDefeat();
+        }
+    }
+
+    private void RestartBalls()
+    {
+        foreach (BallController ball in new List<BallController>(ActiveBalls))
+        {
+            ball.Dispose();
+        }
+        SpawnNewBall();
     }
 }

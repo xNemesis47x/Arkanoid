@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,9 @@ public class UpdateManager : MonoBehaviour
 
     public GameObject powerUpPrefab;
 
-    LevelController levelController = new LevelController();
+    public event Action OnRestartGame;
+
+    public LevelController LevelController { get; private set; }
 
     private UpdateManager Instance;
 
@@ -32,12 +35,13 @@ public class UpdateManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject); // persiste entre escenas si querés
 
-        Debug.Log("UpdateManager inicializado");
+        LevelController = new LevelController();
     }
 
     private void Start()
     {
-        levelController.Start(paddlePrefab, paddleSpawnPoint, Instance);
+        Time.timeScale = 0f;
+        LevelController.Start(paddlePrefab, paddleSpawnPoint, Instance);
     }
 
     // Este método reemplaza el Update global
@@ -57,6 +61,12 @@ public class UpdateManager : MonoBehaviour
             {
                 obj.CustomUpdate(deltaTime);
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.P) && Time.timeScale != 0f)
+        {
+            PauseGame();
+            UIManager.Instance.ShowPause();
         }
 
 //no darle bola a esto
@@ -86,6 +96,25 @@ public class UpdateManager : MonoBehaviour
 
     public PaddleController GetPaddle()
     {
-        return levelController.CurrentPaddle;
+        return LevelController.CurrentPaddle;
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+    }
+
+    public void RestartGame()
+    {
+        OnRestartGame?.Invoke();
+        LevelController.CurrentPaddle.Lives = 3;
+        LevelController.Start(paddlePrefab, paddleSpawnPoint, Instance);
+        UIManager.Instance.Game();
+        Time.timeScale = 1f;
     }
 }

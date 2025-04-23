@@ -8,7 +8,7 @@ public class BallController : IUpdatable
     private Vector3 size;
     private Vector3 pos;
     private PaddleController paddleOwner;
-    private System.Action onDestroyBall;
+    public System.Action onDestroyBall { get; private set; }
 
     private Transform ballTransform;
 
@@ -118,6 +118,9 @@ public class BallController : IUpdatable
         if (pos.y <= -5f && paddleOwner.ActiveBalls.Count <= 1)
         {
             this.isLaunched = false;
+            paddleOwner.Lives--;
+            UIManager.Instance.LoseLife();
+            paddleOwner.CheckDefeat();
         }
         else if(pos.y <= -5f && paddleOwner.ActiveBalls.Count > 1)
         {
@@ -127,7 +130,7 @@ public class BallController : IUpdatable
 
     private void HandleBrickCollision()
     {
-        foreach (Brick brick in BrickManager.Instance.Bricks)
+        foreach (Brick brick in BrickManager.Instance.AllBricks)
         {
             if (brick != null && brick.CheckCollision(pos, size))
             {
@@ -148,9 +151,19 @@ public class BallController : IUpdatable
 
                 brick.DesactivateBrick();
                 brick.OnDesactivateBrick?.Invoke();
+                UIManager.Instance.AddPoints();
+                CheckWin();
                 break;
             }
         }
     }
 
+    public void CheckWin()
+    {
+        if (BrickManager.Instance.AllBricks.Count == 0)
+        {
+            paddleOwner.updateManager.PauseGame();
+            UIManager.Instance.ShowWin();
+        }
+    }
 }

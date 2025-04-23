@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PowerUp : IUpdatable
@@ -10,18 +12,22 @@ public class PowerUp : IUpdatable
 
     UpdateManager updateManager;
 
+    public List<GameObject> activePowerUps { get; private set; }
+
     public PowerUp(Transform powerUpTransform, Vector2 powerUpSize, UpdateManager currentUM)
     {
+        activePowerUps = new List<GameObject>();
         transform = powerUpTransform;
         size = powerUpSize;
         currentUM.Register(this);
-
         updateManager = currentUM;
+
+        updateManager.OnRestartGame += RestartPowerUps;
     }
 
     public void CustomUpdate(float deltaTime)
     {
-        if (isCollected) return;
+        if (isCollected || transform == null) return;
 
         transform.position += Vector3.down * fallSpeed * deltaTime;
 
@@ -33,11 +39,13 @@ public class PowerUp : IUpdatable
                 isCollected = true;
                 onCollected?.Invoke();
                 GameObject.Destroy(transform.gameObject);
+                transform = null;
                 updateManager.Unregister(this);
             }
             else if(transform.position.y < -5f)
             {
                 GameObject.Destroy(transform.gameObject);
+                transform = null;
                 updateManager.Unregister(this);
             }
         }
@@ -54,5 +62,13 @@ public class PowerUp : IUpdatable
     public void SetOnCollectedCallback(System.Action callback)
     {
         onCollected = callback;
+    }
+
+    private void RestartPowerUps()
+    {
+        foreach (GameObject powerUp in activePowerUps)
+        {
+            GameObject.Destroy(powerUp);
+        }
     }
 }
