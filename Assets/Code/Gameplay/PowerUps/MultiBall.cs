@@ -18,7 +18,7 @@ public class MultiBall
             GameObject newBallGO = paddleController.GetBall();
             Vector3 ballSize = new Vector3(0.5f, 0.5f, 0f);
 
-            BallController ball = new BallController();
+            BallController ball = paddleController.GetLogic();
             ball.Initialize(paddleController, ballSize, newBallGO.transform);
             ball.Launch();
 

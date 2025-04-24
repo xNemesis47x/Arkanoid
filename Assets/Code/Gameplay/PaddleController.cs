@@ -91,7 +91,7 @@ public class PaddleController : IUpdatable
         ActiveBalls.Remove(ball);
     }
 
-    private BallController GetLogic()
+    public BallController GetLogic()
     {
         if (InactiveLogicBalls.Count > 0)
         {
