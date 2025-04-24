@@ -152,20 +152,11 @@ public class BallController : IUpdatable
                     brick.DesactivateBrick();
                     brick.OnDesactivateBrick?.Invoke();
                     UIManager.Instance.AddPoints();
-                    CheckWin();
+                    brick.CheckWin();
                 }
 
                 break;
             }
-        }
-    }
-
-    public void CheckWin()
-    {
-        if (BrickManager.Instance.AllBricks.Count == 0)
-        {
-            paddleOwner.UpdateManager.PauseGame();
-            UIManager.Instance.ShowWin();
         }
     }
 }
