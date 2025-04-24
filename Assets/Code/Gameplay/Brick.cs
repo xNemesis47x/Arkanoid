@@ -20,7 +20,7 @@ public class Brick
 
     public void Initialize(Vector3 renderer, Transform transform, BrickManager currentBrickManager, UpdateManager currentUM, bool containsPowerUp = false)
     {
-        Life = Random.Range(1,3);
+        Life = Random.Range(1,4);
         IsActive = true;
         Size = renderer;
         Position = transform.position;
