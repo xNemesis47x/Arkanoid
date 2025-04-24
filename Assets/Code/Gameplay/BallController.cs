@@ -146,6 +146,7 @@ public class BallController : IUpdatable
                 }
 
                 brick.Life--;
+                brick.UpdateColor();
 
                 if (brick.Life == 0)
                 {

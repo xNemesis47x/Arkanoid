@@ -15,6 +15,9 @@ public class Brick
 
     private UpdateManager updateManager;
 
+    private Renderer brickRenderer;
+    private MaterialPropertyBlock block;
+
     public void Initialize(Vector3 renderer, Transform transform, BrickManager currentBrickManager, UpdateManager currentUM, bool containsPowerUp = false)
     {
         Life = Random.Range(1,3);
@@ -25,6 +28,10 @@ public class Brick
         isPowerUp = containsPowerUp;
         brickManager = currentBrickManager;
         updateManager = currentUM;
+
+        brickRenderer = BrickObject.GetComponent<Renderer>();
+        block = new MaterialPropertyBlock();
+        UpdateColorByLife();
     }
 
     public void DesactivateBrick()
@@ -85,5 +92,35 @@ public class Brick
             UIManager.Instance.ShowWin();
             updateManager.PauseGame();
         }
+    }
+
+    private void UpdateColorByLife()
+    {
+        if (brickRenderer == null) return;
+
+        Color color;
+
+        switch (Life)
+        {
+            case 3:
+                color = Color.green;
+                break;
+            case 2:
+                color = Color.blue;
+                break;
+            case 1:
+            default:
+                color = Color.cyan;
+                break;
+        }
+
+        brickRenderer.GetPropertyBlock(block);
+        block.SetColor("_Color", color);
+        brickRenderer.SetPropertyBlock(block);
+    }
+
+    public void UpdateColor()
+    {
+        UpdateColorByLife();
     }
 }
