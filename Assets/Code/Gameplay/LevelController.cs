@@ -6,18 +6,17 @@ public class LevelController
     private GameObject paddlePrefab;
     private Transform paddleSpawnPoint;
 
-    private PaddleController currentPaddle;
-    public PaddleController CurrentPaddle => currentPaddle;
+    private UpdateManager updateManager;
 
-    UpdateManager updateManager;
+    public PaddleController CurrentPaddle { get; private set; }
 
-    private int countLevels;
-    public int countPoints { get; set; }
+    public int CountLevels { get; private set; }
+    public int CountPoints { get; set; }
 
     public void Start(GameObject paddleGM, Transform paddleSpawn, UpdateManager currentUM)
     {
-        countLevels = 1;
-        countPoints = 0;
+        CountLevels = 1;
+        CountPoints = 0;
         updateManager = currentUM;
         paddlePrefab = paddleGM;
         paddleSpawnPoint = paddleSpawn;
@@ -27,28 +26,13 @@ public class LevelController
 
     public void Initialize()
     {
-        if (paddlePrefab != null && paddleSpawnPoint != null && currentPaddle == null)
+        if (paddlePrefab != null && paddleSpawnPoint != null && CurrentPaddle == null)
         {
             GameObject paddleGO = GameObject.Instantiate(paddlePrefab, paddleSpawnPoint.position, paddleSpawnPoint.rotation);
             Renderer paddleRenderer = paddleGO.GetComponent<Renderer>();
 
-            currentPaddle = new PaddleController();
-            currentPaddle.Initialize(paddleRenderer, paddleGO.transform, updateManager);
+            CurrentPaddle = new PaddleController();
+            CurrentPaddle.Initialize(paddleRenderer, paddleGO.transform, updateManager);
         }
-    }
-
-    public int GetPoints()
-    {
-        return countPoints;
-    }
-
-    public int GetLevels()
-    {
-        return countLevels;
-    }
-
-    public int GetLives()
-    {
-        return currentPaddle.Lives;
     }
 }

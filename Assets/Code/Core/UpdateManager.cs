@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class UpdateManager : MonoBehaviour
 {
-    public GameObject ballPrefab;
-    public Transform ballContainer;
+    public GameObject BallPrefab;
+    public Transform BallContainer;
 
-    public GameObject paddlePrefab;
-    public Transform paddleSpawnPoint;
+    public GameObject PaddlePrefab;
+    public Transform PaddleSpawnPoint;
 
-    public GameObject brickPrefab;
-    public Transform brickContainer;
+    public GameObject BrickPrefab;
+    public Transform BrickContainer;
 
-    public GameObject powerUpPrefab;
+    public GameObject PowerUpPrefab;
 
     public event Action OnRestartGame;
 
@@ -41,7 +41,7 @@ public class UpdateManager : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 0f;
-        LevelController.Start(paddlePrefab, paddleSpawnPoint, Instance);
+        LevelController.Start(PaddlePrefab, PaddleSpawnPoint, Instance);
 
         UIManager.Instance.SplashScreen();
     }
@@ -65,17 +65,11 @@ public class UpdateManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.P) && Time.timeScale != 0f)
+        if (Input.GetKeyDown(KeyCode.P) && Math.Abs(Time.timeScale) > 0.01f)
         {
             PauseGame();
             UIManager.Instance.ShowPause();
         }
-
-//no darle bola a esto
-# if DEBUG_ON
-        //Debug.Log("");
-#endif
-
     }
 
     // Registrar un objeto que implementa IUpdatable
@@ -115,7 +109,7 @@ public class UpdateManager : MonoBehaviour
     {
         OnRestartGame?.Invoke();
         LevelController.CurrentPaddle.Lives = 3;
-        LevelController.Start(paddlePrefab, paddleSpawnPoint, Instance);
+        LevelController.Start(PaddlePrefab, PaddleSpawnPoint, Instance);
         UIManager.Instance.Game();
         Time.timeScale = 1f;
     }

@@ -1,20 +1,18 @@
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class UIView
 {
-    Image menuScreen;
-    Image winScreen;
-    Image defeatScreen;
-    Image pauseScreen;
-    RawImage splashScreen;
-    VideoPlayer videoController;
+    private Image menuScreen;
+    private Image winScreen;
+    private Image defeatScreen;
+    private Image pauseScreen;
+    private VideoPlayer videoController;
 
-    TMP_Text livesText;
-    TMP_Text levelsText;
-    TMP_Text pointsText;
+    private TMP_Text livesText;
+    private TMP_Text levelsText;
+    private TMP_Text pointsText;
 
     public UIView(TMP_Text lives, TMP_Text levels, TMP_Text points, Image menu, Image win, Image defeat, Image pause, VideoPlayer splashVideo)
     {
@@ -26,7 +24,6 @@ public class UIView
         livesText = lives;
         levelsText = levels;
         pointsText = points;
-        //this.splashScreen = splashScreen;
     }
 
     public void ShowLives(int lives)

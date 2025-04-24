@@ -1,9 +1,7 @@
-using UnityEngine;
-
 public class UIController
 {
-    UIModel model;
-    UIView view;
+    private UIModel model;
+    private UIView view;
 
     public UIController(UIModel currentModel, UIView currentView)
     {

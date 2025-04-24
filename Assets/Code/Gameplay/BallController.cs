@@ -4,15 +4,13 @@ public class BallController : IUpdatable
 {
     private float speed = 8f;
     private Vector3 direction;
-    private bool isLaunched;
     private Vector3 size;
     private Vector3 pos;
     private PaddleController paddleOwner;
-    public System.Action onDestroyBall { get; private set; }
-
     private Transform ballTransform;
 
-    public bool IsLaunched => isLaunched;
+    public event System.Action onDestroyBall;
+    public bool IsLaunched { get; private set; }
 
     public void SetDestroyCallback(System.Action _event)
     {
@@ -22,7 +20,7 @@ public class BallController : IUpdatable
     public void Initialize(PaddleController owner, Vector3 sizeFake, Transform transform)
     {
         paddleOwner = owner;
-        isLaunched = false;
+        IsLaunched = false;
         direction = Vector3.zero;
         size = sizeFake;
         pos = paddleOwner.Position + Vector3.up * 0.5f;
@@ -30,14 +28,13 @@ public class BallController : IUpdatable
 
         ballTransform.position = pos;
 
-        paddleOwner.updateManager.Register(this);
+        paddleOwner.UpdateManager.Register(this);
     }
 
     //Lo suma a la lista de objetos a eliminar 
     public void Dispose()
     {
-        paddleOwner.updateManager.Unregister(this);
-        Debug.Log("Pelota eliminada y desregistrada del UpdateManager.");
+        paddleOwner.UpdateManager.Unregister(this);
         onDestroyBall?.Invoke();
     }
 
@@ -45,13 +42,12 @@ public class BallController : IUpdatable
     {
         float randomX = Random.Range(-0.5f, 0.5f);
         direction = new Vector2(randomX, 1f).normalized;
-        isLaunched = true;
-        Debug.Log($"Pelota lanzada con dirección {direction}");
+        IsLaunched = true;
     }
 
     public void CustomUpdate(float deltaTime)
     {
-        if (!isLaunched && paddleOwner.ActiveBalls.Count <= 1)
+        if (!IsLaunched && paddleOwner.ActiveBalls.Count <= 1)
         {
             // Seguir la posición de la paleta (centrado en X, justo arriba en Y)
             Vector2 paddlePos = paddleOwner.Position;
@@ -117,12 +113,12 @@ public class BallController : IUpdatable
 
         if (pos.y <= -5f && paddleOwner.ActiveBalls.Count <= 1)
         {
-            this.isLaunched = false;
+            this.IsLaunched = false;
             paddleOwner.Lives--;
             UIManager.Instance.LoseLife();
             paddleOwner.CheckDefeat();
         }
-        else if(pos.y <= -5f && paddleOwner.ActiveBalls.Count > 1)
+        else if (pos.y <= -5f && paddleOwner.ActiveBalls.Count > 1)
         {
             Dispose();
         }
@@ -149,10 +145,16 @@ public class BallController : IUpdatable
                     direction.y *= -1;
                 }
 
-                brick.DesactivateBrick();
-                brick.OnDesactivateBrick?.Invoke();
-                UIManager.Instance.AddPoints();
-                CheckWin();
+                brick.Life--;
+
+                if (brick.Life == 0)
+                {
+                    brick.DesactivateBrick();
+                    brick.OnDesactivateBrick?.Invoke();
+                    UIManager.Instance.AddPoints();
+                    CheckWin();
+                }
+
                 break;
             }
         }
@@ -162,7 +164,7 @@ public class BallController : IUpdatable
     {
         if (BrickManager.Instance.AllBricks.Count == 0)
         {
-            paddleOwner.updateManager.PauseGame();
+            paddleOwner.UpdateManager.PauseGame();
             UIManager.Instance.ShowWin();
         }
     }

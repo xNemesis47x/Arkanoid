@@ -9,10 +9,7 @@ public class BrickManager
     private GameObject brickPrefab;
     private Transform brickContainer;
 
-    [Header("Bricks")]
-    private List<Brick> allBricks = new List<Brick>();
-    public List<Brick> AllBricks => allBricks;
-
+    public List<Brick> AllBricks { get; private set; } = new List<Brick>();
     public Queue<GameObject> InactiveBrick { get; private set; }
     public Queue<Brick> InactiveBricksLogic { get; private set; }
 
@@ -21,8 +18,8 @@ public class BrickManager
     {
         InactiveBricksLogic = new Queue<Brick>();
         InactiveBrick = new Queue<GameObject>();
-        brickContainer = currentUM.brickContainer;
-        brickPrefab = currentUM.brickPrefab;
+        brickContainer = currentUM.BrickContainer;
+        brickPrefab = currentUM.BrickPrefab;
         InitializeBricks(currentUM);
     }
 
@@ -49,11 +46,9 @@ public class BrickManager
                 Brick brick = GetLogic();
                 bool containsPowerUp = Random.value < 0.1f; // 10% chance
                 brick.Initialize(brickSize, brickGO.transform, this, currentUM, containsPowerUp);
-                allBricks.Add(brick);
+                AllBricks.Add(brick);
             }
         }
-
-        Debug.Log($"Bricks instanciados: {allBricks.Count}");
     }
 
     private GameObject GetBrick(Vector2 spawnPos)
@@ -71,14 +66,14 @@ public class BrickManager
 
     private void RecycleBricks()
     {
-        foreach (Brick brick in allBricks)
+        foreach (Brick brick in AllBricks)
         {
             brick.Disable();
             InactiveBrick.Enqueue(brick.BrickObject);
             InactiveBricksLogic.Enqueue(brick); 
         }
 
-        allBricks.Clear();
+        AllBricks.Clear();
     }
 
     private Brick GetLogic()
@@ -95,6 +90,6 @@ public class BrickManager
 
     public int GetActiveBricks()
     {
-        return allBricks.Count(brick => brick.IsActive);
+        return AllBricks.Count(brick => brick.IsActive);
     }
 }

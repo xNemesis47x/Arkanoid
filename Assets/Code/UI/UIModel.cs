@@ -1,12 +1,10 @@
-using UnityEngine;
-
 public class UIModel
 {
+    private LevelController levelController;
+    
     public int CountLevels { get; private set; }
     public int Lives { get; private set; }
     public int PointsPlayer { get; private set; }
-
-    LevelController levelController;
 
     public UIModel(LevelController currentLevelController)
     {
@@ -15,17 +13,17 @@ public class UIModel
 
     public void UpdatePoints()
     {
-        PointsPlayer = levelController.GetPoints();
+        PointsPlayer = levelController.CountPoints;
     }
 
     public void UpdateLevels()
     {
-        CountLevels = levelController.GetLevels();
+        CountLevels = levelController.CountLevels;
     }
 
     public void UpdateLives()
     {
-        Lives = levelController.GetLives();
+        Lives = levelController.CurrentPaddle.Lives;
     }
 
 }

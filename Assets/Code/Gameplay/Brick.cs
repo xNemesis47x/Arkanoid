@@ -2,27 +2,25 @@ using UnityEngine;
 
 public class Brick
 {
-    private Vector2 size;
-    private Vector2 position;
+    private bool isPowerUp;
 
-    public Vector2 Size => size;
-    public Vector2 Position => position;
-
+    public int Life { get; set; }
+    public Vector2 Size { get; private set; }
+    public Vector2 Position { get; private set; }
     public GameObject BrickObject { get; private set; }
     public System.Action OnDesactivateBrick { get; private set; }
-
-    bool isPowerUp;
     public bool IsActive { get; private set; }
 
-    BrickManager brickManager;
+    private BrickManager brickManager;
 
-    UpdateManager updateManager;
+    private UpdateManager updateManager;
 
     public void Initialize(Vector3 renderer, Transform transform, BrickManager currentBrickManager, UpdateManager currentUM, bool containsPowerUp = false)
     {
+        Life = Random.Range(1,3);
         IsActive = true;
-        size = renderer;
-        position = transform.position;
+        Size = renderer;
+        Position = transform.position;
         BrickObject = transform.gameObject;
         isPowerUp = containsPowerUp;
         brickManager = currentBrickManager;
@@ -36,7 +34,7 @@ public class Brick
             SpawnPowerUp();
         }
 
-        updateManager.LevelController.countPoints += 10;
+        updateManager.LevelController.CountPoints += 10;
         IsActive = false;
         BrickObject.SetActive(false);
         brickManager.InactiveBrick.Enqueue(BrickObject);
@@ -52,25 +50,27 @@ public class Brick
 
     private void SpawnPowerUp()
     {
-        GameObject powerUpPrefab = updateManager.powerUpPrefab;
-        GameObject newPowerUp = GameObject.Instantiate(powerUpPrefab, position, Quaternion.identity);
+        GameObject powerUpPrefab = updateManager.PowerUpPrefab;
+        GameObject newPowerUp = GameObject.Instantiate(powerUpPrefab, Position, Quaternion.identity);
         PowerUp powerUp = new PowerUp(newPowerUp.transform, new Vector2(0.5f, 0.5f), updateManager);
-        powerUp.activePowerUps.Add(newPowerUp);
+        powerUp.ActivePowerUps.Add(newPowerUp);
 
-        powerUp.SetOnCollectedCallback(() =>
-        {
-            powerUp.activePowerUps.Remove(newPowerUp);
-            MultiBall multiBall = new MultiBall(updateManager.GetPaddle());
-            multiBall.SpawnMultiBall();
-        });
+        powerUp.SetOnCollectedCallback(() => EventPowerUp(powerUp, newPowerUp));
+    }
+
+    private void EventPowerUp(PowerUp powerUp, GameObject newPowerUp)
+    {
+        powerUp.ActivePowerUps.Remove(newPowerUp);
+        MultiBall multiBall = new MultiBall(updateManager.GetPaddle());
+        multiBall.SpawnMultiBall();
     }
 
     public bool CheckCollision(Vector2 ballPos, Vector2 ballSize)
     {
         if (BrickObject.activeInHierarchy)
         {
-            bool overlapX = Mathf.Abs(ballPos.x - position.x) < (ballSize.x / 2 + size.x / 2);
-            bool overlapY = Mathf.Abs(ballPos.y - position.y) < (ballSize.y / 2 + size.y / 2);
+            bool overlapX = Mathf.Abs(ballPos.x - Position.x) < (ballSize.x / 2 + Size.x / 2);
+            bool overlapY = Mathf.Abs(ballPos.y - Position.y) < (ballSize.y / 2 + Size.y / 2);
 
             return overlapX && overlapY;
         }

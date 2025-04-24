@@ -1,10 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PaddleController : IUpdatable
 {
-    public int Lives { get; set; }
-
     [Header("Movimiento")]
     private float speed = 10f;
 
@@ -12,55 +11,46 @@ public class PaddleController : IUpdatable
     private GameObject ballPrefab;
     private Transform ballContainer;
 
-    private Vector3 size;
-    private Vector3 position;
 
     private Transform paddleTransform;
 
-    public Vector3 Size => size;
-    public Vector3 Position => position;
-
-    private List<BallController> activeBalls = new List<BallController>();
-    public List<BallController> ActiveBalls { get => activeBalls; set => activeBalls = value; }
-
-    public Queue<GameObject> InactiveObjectBalls { get; private set; }
-
-    public UpdateManager updateManager { get; private set; }
+    public Vector3 Size { get; private set; }
+    public Vector3 Position { get; private set; }
+    public int Lives { get; set; }
+    public List<BallController> ActiveBalls { get; private set; } = new List<BallController>();
+    public Queue<GameObject> InactiveObjectBalls { get; private set; } = new Queue<GameObject>();
+    public Queue<BallController> InactiveLogicBalls { get; private set; } = new Queue<BallController>();
+    public UpdateManager UpdateManager { get; private set; }
 
     public void Initialize(Renderer rendererFake, Transform transform, UpdateManager currentUM)
     {
         Lives = 3;
-        ballContainer = currentUM.ballContainer;
-        ballPrefab = currentUM.ballPrefab;
+        ballContainer = currentUM.BallContainer;
+        ballPrefab = currentUM.BallPrefab;
         Renderer rend = rendererFake;
         paddleTransform = transform;
-        InactiveObjectBalls = new Queue<GameObject>();
 
         if (rend != null)
         {
-            size = rend.bounds.size;
-        }
-        else
-        {
-            Debug.LogError("El Paddle no tiene un Renderer asignado.");
+            Size = rend.bounds.size;
         }
 
-        position = paddleTransform.position;
+        Position = paddleTransform.position;
 
         currentUM.Register(this);
-        updateManager = currentUM;
+        UpdateManager = currentUM;
         SpawnNewBall();
 
-        updateManager.OnRestartGame += RestartBalls;
+        UpdateManager.OnRestartGame += RestartBalls;
     }
 
     public void CustomUpdate(float deltaTime)
     {
         float input = Input.GetAxisRaw("Horizontal");
         Vector3 movement = new(input * speed * deltaTime, 0f, 0f);
-        position += movement;
+        Position += movement;
 
-        if (Input.GetKeyDown(KeyCode.Space) && Time.timeScale != 0f)
+        if (Input.GetKeyDown(KeyCode.Space) && Math.Abs(Time.timeScale) > 0.01f)
         {
             foreach (BallController ball in ActiveBalls)
             {
@@ -69,7 +59,7 @@ public class PaddleController : IUpdatable
             }
         }
 
-        paddleTransform.position = position;
+        paddleTransform.position = Position;
         HandleScreenBounds();
     }
 
@@ -77,27 +67,40 @@ public class PaddleController : IUpdatable
     {
         if (ballPrefab == null)
         {
-            Debug.LogError("Falta asignar prefab");
             return null;
         }
 
         GameObject newBallGO = GetBall();
         Vector3 ballSize = new Vector3(0.5f, 0.5f, 0f);
-
-        BallController ball = new BallController();
+        BallController ball = GetLogic();
         ball.Initialize(this, ballSize, newBallGO.transform);
 
 
-        ball.SetDestroyCallback(() =>
-        {
-            newBallGO.SetActive(false);
-            InactiveObjectBalls.Enqueue(newBallGO);
-            activeBalls.Remove(ball);
-        });
+        ball.SetDestroyCallback(() => EventBall(newBallGO, ball));
 
         ActiveBalls.Add(ball);
 
         return newBallGO;
+    }
+
+    private void EventBall(GameObject newBallGO, BallController ball)
+    {
+        newBallGO.SetActive(false);
+        InactiveObjectBalls.Enqueue(newBallGO);
+        InactiveLogicBalls.Enqueue(ball);
+        ActiveBalls.Remove(ball);
+    }
+
+    private BallController GetLogic()
+    {
+        if (InactiveLogicBalls.Count > 0)
+        {
+            return InactiveLogicBalls.Dequeue();
+        }
+        else
+        {
+            return new BallController();
+        }
     }
 
     public GameObject GetBall()
@@ -114,29 +117,31 @@ public class PaddleController : IUpdatable
             }
         }
 
-        return GameObject.Instantiate(ballPrefab, position, Quaternion.identity, ballContainer);
+        return GameObject.Instantiate(ballPrefab, Position, Quaternion.identity, ballContainer);
     }
 
     private void HandleScreenBounds()
     {
-        Vector2 pos = this.position;
+        Vector2 pos = this.Position;
 
         if (pos.x <= -8.5f)
         {
-            position.x = -8.5f;
+            pos.x = -8.5f;
         }
 
         if (pos.x >= 8.5f)
         {
-            position.x = 8.5f;
+            pos.x = 8.5f;
         }
+
+        this.Position = pos;
     }
 
     public void CheckDefeat()
     {
         if (Lives == 0)
         {
-            updateManager.PauseGame();
+            UpdateManager.PauseGame();
             UIManager.Instance.ShowDefeat();
         }
     }

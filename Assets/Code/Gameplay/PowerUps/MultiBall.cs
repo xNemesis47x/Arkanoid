@@ -2,16 +2,18 @@ using UnityEngine;
 
 public class MultiBall
 {
-    PaddleController paddleController;
+    private PaddleController paddleController;
+    private int ballsAmount;
 
     public MultiBall(PaddleController currentPaddle)
     {
+        ballsAmount = 2;
         paddleController = currentPaddle;
     }
 
     public void SpawnMultiBall()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < ballsAmount; i++)
         {
             GameObject newBallGO = paddleController.GetBall();
             Vector3 ballSize = new Vector3(0.5f, 0.5f, 0f);
@@ -20,14 +22,17 @@ public class MultiBall
             ball.Initialize(paddleController, ballSize, newBallGO.transform);
             ball.Launch();
 
-            ball.SetDestroyCallback(() =>
-            {
-                newBallGO.SetActive(false);
-                paddleController.InactiveObjectBalls.Enqueue(newBallGO);
-                paddleController.ActiveBalls.Remove(ball);
-            });
+            ball.SetDestroyCallback(() => EventBall(newBallGO, ball));
 
             paddleController.ActiveBalls.Add(ball);
         }
+    }
+
+    private void EventBall(GameObject newBallGO, BallController ball)
+    {
+        newBallGO.SetActive(false);
+        paddleController.InactiveObjectBalls.Enqueue(newBallGO);
+        paddleController.InactiveLogicBalls.Enqueue(ball);
+        paddleController.ActiveBalls.Remove(ball);
     }
 }

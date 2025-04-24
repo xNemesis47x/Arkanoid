@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PowerUp : IUpdatable
@@ -7,16 +6,16 @@ public class PowerUp : IUpdatable
     private Transform transform;
     private Vector2 size;
     private float fallSpeed = 3f;
-    private System.Action onCollected;
+    private event System.Action onCollected;
     private bool isCollected = false;
 
-    UpdateManager updateManager;
+    private UpdateManager updateManager;
 
-    public List<GameObject> activePowerUps { get; private set; }
+    public List<GameObject> ActivePowerUps { get; private set; }
 
     public PowerUp(Transform powerUpTransform, Vector2 powerUpSize, UpdateManager currentUM)
     {
-        activePowerUps = new List<GameObject>();
+        ActivePowerUps = new List<GameObject>();
         transform = powerUpTransform;
         size = powerUpSize;
         currentUM.Register(this);
@@ -66,7 +65,7 @@ public class PowerUp : IUpdatable
 
     private void RestartPowerUps()
     {
-        foreach (GameObject powerUp in activePowerUps)
+        foreach (GameObject powerUp in ActivePowerUps)
         {
             GameObject.Destroy(powerUp);
         }

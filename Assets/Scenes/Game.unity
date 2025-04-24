@@ -1772,7 +1772,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 'Points:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2752,8 +2752,8 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2853,13 +2853,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf4162855c5fcc24e8bec29e0af292d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 5825229810813210427, guid: 6622669b99558b242b5444e2265675a8, type: 3}
-  ballContainer: {fileID: 1739432632}
-  paddlePrefab: {fileID: 2994900055087329948, guid: e72ad595f75b389438d0c752d04845b5, type: 3}
-  paddleSpawnPoint: {fileID: 407052572}
-  brickPrefab: {fileID: 6423627448747013948, guid: 01a76d02e59fac547ad7345b159d173b, type: 3}
-  brickContainer: {fileID: 2056887019}
-  powerUpPrefab: {fileID: 7196462839864974726, guid: b0538ba78c2f99f47b93b005ecbc1963, type: 3}
+  BallPrefab: {fileID: 5825229810813210427, guid: 6622669b99558b242b5444e2265675a8, type: 3}
+  BallContainer: {fileID: 1739432632}
+  PaddlePrefab: {fileID: 2994900055087329948, guid: e72ad595f75b389438d0c752d04845b5, type: 3}
+  PaddleSpawnPoint: {fileID: 407052572}
+  BrickPrefab: {fileID: 6423627448747013948, guid: 01a76d02e59fac547ad7345b159d173b, type: 3}
+  BrickContainer: {fileID: 2056887019}
+  PowerUpPrefab: {fileID: 7196462839864974726, guid: b0538ba78c2f99f47b93b005ecbc1963, type: 3}
 --- !u!1 &1034688296
 GameObject:
   m_ObjectHideFlags: 0
@@ -3952,7 +3952,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 'Level:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

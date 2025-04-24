@@ -1,6 +1,5 @@
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -8,16 +7,16 @@ using UnityEngine.Video;
 public class UIManager : MonoBehaviour
 {
     [Header("Imagenes")]
-    [SerializeField] Image menuScreen;
-    [SerializeField] Image winScreen;
-    [SerializeField] Image defeatScreen;
-    [SerializeField] Image pauseScreen;
-    [SerializeField] VideoPlayer videoController;
+    [SerializeField] private Image menuScreen;
+    [SerializeField] private Image winScreen;
+    [SerializeField] private Image defeatScreen;
+    [SerializeField] private Image pauseScreen;
+    [SerializeField] private VideoPlayer videoController;
 
     [Header("Textos")]
-    [SerializeField] TMP_Text livesText;
-    [SerializeField] TMP_Text levelsText;
-    [SerializeField] TMP_Text pointsText;
+    [SerializeField] private TMP_Text livesText;
+    [SerializeField] private TMP_Text levelsText;
+    [SerializeField] private TMP_Text pointsText;
 
     [SerializeField] private UpdateManager updateManager;
     private UIModel currentModel;
@@ -31,7 +30,6 @@ public class UIManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            // Setup como antes
         }
         else
         {
