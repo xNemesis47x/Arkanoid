@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  m_GroupName: Level 1
+  m_Data:
+    m_SerializedData: []
+  m_GUID: fe05ee9bfe8c2a74cb8e72f94d451f12
+  m_SerializeEntries:
+  - m_GUID: 01a76d02e59fac547ad7345b159d173b
+    m_Address: Assets/Prefabs/Brick.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e72ad595f75b389438d0c752d04845b5
+    m_Address: Assets/Prefabs/paddlePrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0538ba78c2f99f47b93b005ecbc1963
+    m_Address: Assets/Prefabs/PowerUp.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6622669b99558b242b5444e2265675a8
+    m_Address: Assets/Prefabs/ballPrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 688189b2caaa53e459ba289bdfe83c8b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: c1804d302bdcad64d96cf0303d59c08a, type: 2}
+    - {fileID: 11400000, guid: 469927f244ffdc4468e7fa36307df100, type: 2}
