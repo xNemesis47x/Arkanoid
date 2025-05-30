@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +16,11 @@ public class UpdateManager : MonoBehaviour
 
     public GameObject PowerUpPrefab;
 
+    public List<Aasd> assetReferences;
+
     public event Action OnRestartGame;
+
+    private AdressableInstantiator adressable;
 
     public LevelController LevelController { get; private set; }
 
@@ -35,6 +40,7 @@ public class UpdateManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject); // persiste entre escenas si querés
 
+        adressable = new AdressableInstantiator();
         LevelController = new LevelController();
     }
 
@@ -42,7 +48,7 @@ public class UpdateManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         LevelController.Start(PaddlePrefab, PaddleSpawnPoint, Instance);
-
+        adressable.Initialize(assetReferences, Instance);
         UIManager.Instance.SplashScreen();
     }
 
@@ -112,5 +118,10 @@ public class UpdateManager : MonoBehaviour
         LevelController.Start(PaddlePrefab, PaddleSpawnPoint, Instance);
         UIManager.Instance.Game();
         Time.timeScale = 1f;
+    }
+
+    public void CoRoutineStart(IEnumerator coRoutine)
+    {
+        StartCoroutine(coRoutine);
     }
 }
