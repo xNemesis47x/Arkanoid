@@ -2692,21 +2692,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf4162855c5fcc24e8bec29e0af292d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BallPrefab: {fileID: 5825229810813210427, guid: 6622669b99558b242b5444e2265675a8, type: 3}
   BallContainer: {fileID: 1739432632}
-  PaddlePrefab: {fileID: 2994900055087329948, guid: e72ad595f75b389438d0c752d04845b5, type: 3}
   PaddleSpawnPoint: {fileID: 407052572}
-  BrickPrefab: {fileID: 6423627448747013948, guid: 01a76d02e59fac547ad7345b159d173b, type: 3}
   BrickContainer: {fileID: 2056887019}
-  PowerUpPrefab: {fileID: 7196462839864974726, guid: b0538ba78c2f99f47b93b005ecbc1963, type: 3}
   assetReferences:
   - name: Level 1-5
     refe:
-    - m_AssetGUID: 01a76d02e59fac547ad7345b159d173b
+    - m_AssetGUID: e72ad595f75b389438d0c752d04845b5
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    - m_AssetGUID: e72ad595f75b389438d0c752d04845b5
+    - m_AssetGUID: 01a76d02e59fac547ad7345b159d173b
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

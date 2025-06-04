@@ -6,6 +6,7 @@ public class LevelController
     private GameObject paddlePrefab;
     private Transform paddleSpawnPoint;
 
+    private AdressableInstantiator adressable;
     private UpdateManager updateManager;
 
     public PaddleController CurrentPaddle { get; private set; }
@@ -13,15 +14,17 @@ public class LevelController
     public int CountLevels { get; private set; }
     public int CountPoints { get; set; }
 
-    public void Start(GameObject paddleGM, Transform paddleSpawn, UpdateManager currentUM)
+    public void Start(UpdateManager currentUM, Transform paddleSpawn, AdressableInstantiator currentAdress)
     {
         CountLevels = 1;
         CountPoints = 0;
         updateManager = currentUM;
-        paddlePrefab = paddleGM;
+        adressable = currentAdress;
+        paddlePrefab = adressable.GetInstance("paddlePrefab");
         paddleSpawnPoint = paddleSpawn;
         Initialize();
-        BrickManager.Instance.Initialize(currentUM);
+        BrickManager.Instance.Initialize(currentUM, currentAdress);
+        currentUM.OnRestartGame += () => Start(updateManager, paddleSpawnPoint, adressable);
     }
 
     public void Initialize()
@@ -32,7 +35,7 @@ public class LevelController
             Renderer paddleRenderer = paddleGO.GetComponent<Renderer>();
 
             CurrentPaddle = new PaddleController();
-            CurrentPaddle.Initialize(paddleRenderer, paddleGO.transform, updateManager);
+            CurrentPaddle.Initialize(paddleRenderer, paddleGO.transform, updateManager, adressable);
         }
     }
 }

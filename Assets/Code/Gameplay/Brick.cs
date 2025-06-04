@@ -17,8 +17,9 @@ public class Brick
 
     private Renderer brickRenderer;
     private MaterialPropertyBlock block;
+    private AdressableInstantiator currentAdressable;
 
-    public void Initialize(Vector3 renderer, Transform transform, BrickManager currentBrickManager, UpdateManager currentUM, bool containsPowerUp = false)
+    public void Initialize(Vector3 renderer, Transform transform, BrickManager currentBrickManager, UpdateManager currentUM, AdressableInstantiator adressable, bool containsPowerUp = false)
     {
         Life = Random.Range(1,5);
         IsActive = true;
@@ -28,6 +29,7 @@ public class Brick
         isPowerUp = containsPowerUp;
         brickManager = currentBrickManager;
         updateManager = currentUM;
+        currentAdressable = adressable;
 
         brickRenderer = BrickObject.GetComponent<Renderer>();
         block = new MaterialPropertyBlock();
@@ -57,7 +59,7 @@ public class Brick
 
     private void SpawnPowerUp()
     {
-        GameObject powerUpPrefab = updateManager.PowerUpPrefab;
+        GameObject powerUpPrefab = currentAdressable.GetInstance("PowerUp");
         GameObject newPowerUp = GameObject.Instantiate(powerUpPrefab, Position, Quaternion.identity);
         PowerUp powerUp = new PowerUp(newPowerUp.transform, new Vector2(0.5f, 0.5f), updateManager);
         powerUp.ActivePowerUps.Add(newPowerUp);

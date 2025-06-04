@@ -3,7 +3,8 @@ using UnityEngine.AddressableAssets;
 
 public class LoaderController
 {
-    private GameObject loader;
+    //puede ser como una pantalla de carga
+    //private GameObject loader;
 
     AdressableInstantiator adressable;
 
@@ -22,8 +23,8 @@ public class LoaderController
     {
         //Esto es para getear la instancia de los prefabs y desde aca asignarselos al objeto (script), es decir, todos los prefabs del UpdateManager se van a ir
         Debug.Log("HideLoader");
-        loader.SetActive(false);
+        //loader.SetActive(false);
         // Ejemplo de instanciación de un objeto
-        GameObject instance = adressable.GetInstance("Ball");
+        //GameObject instance = adressable.GetInstance("Ball");
     }
 }

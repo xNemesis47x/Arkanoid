@@ -5,16 +5,11 @@ using UnityEngine;
 
 public class UpdateManager : MonoBehaviour
 {
-    public GameObject BallPrefab;
     public Transform BallContainer;
 
-    public GameObject PaddlePrefab;
     public Transform PaddleSpawnPoint;
 
-    public GameObject BrickPrefab;
     public Transform BrickContainer;
-
-    public GameObject PowerUpPrefab;
 
     public List<Aasd> assetReferences;
 
@@ -47,8 +42,7 @@ public class UpdateManager : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 0f;
-        LevelController.Start(PaddlePrefab, PaddleSpawnPoint, Instance);
-        adressable.Initialize(assetReferences, Instance);
+        adressable.Initialize(assetReferences, Instance, LevelController);
         UIManager.Instance.SplashScreen();
     }
 
@@ -115,7 +109,6 @@ public class UpdateManager : MonoBehaviour
     {
         OnRestartGame?.Invoke();
         LevelController.CurrentPaddle.Lives = 3;
-        LevelController.Start(PaddlePrefab, PaddleSpawnPoint, Instance);
         UIManager.Instance.Game();
         Time.timeScale = 1f;
     }

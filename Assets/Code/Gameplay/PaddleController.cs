@@ -22,11 +22,11 @@ public class PaddleController : IUpdatable
     public Queue<BallController> InactiveLogicBalls { get; private set; } = new Queue<BallController>();
     public UpdateManager UpdateManager { get; private set; }
 
-    public void Initialize(Renderer rendererFake, Transform transform, UpdateManager currentUM)
+    public void Initialize(Renderer rendererFake, Transform transform, UpdateManager currentUM, AdressableInstantiator adressable)
     {
         Lives = 3;
         ballContainer = currentUM.BallContainer;
-        ballPrefab = currentUM.BallPrefab;
+        ballPrefab = adressable.GetInstance("ballPrefab");
         Renderer rend = rendererFake;
         paddleTransform = transform;
 

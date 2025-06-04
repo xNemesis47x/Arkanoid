@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BrickManager
@@ -13,13 +14,15 @@ public class BrickManager
     public Queue<GameObject> InactiveBrick { get; private set; }
     public Queue<Brick> InactiveBricksLogic { get; private set; }
 
+    private AdressableInstantiator currentAdressable;
 
-    public void Initialize(UpdateManager currentUM)
+    public void Initialize(UpdateManager currentUM, AdressableInstantiator adressable)
     {
         InactiveBricksLogic = new Queue<Brick>();
         InactiveBrick = new Queue<GameObject>();
         brickContainer = currentUM.BrickContainer;
-        brickPrefab = currentUM.BrickPrefab;
+        brickPrefab = adressable.GetInstance("Brick");
+        currentAdressable = adressable;
         InitializeBricks(currentUM);
     }
 
@@ -45,7 +48,7 @@ public class BrickManager
 
                 Brick brick = GetLogic();
                 bool containsPowerUp = Random.value < 0.1f; // 10% chance
-                brick.Initialize(brickSize, brickGO.transform, this, currentUM, containsPowerUp);
+                brick.Initialize(brickSize, brickGO.transform, this, currentUM, currentAdressable, containsPowerUp);
                 AllBricks.Add(brick);
             }
         }

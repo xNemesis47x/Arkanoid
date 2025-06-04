@@ -24,8 +24,10 @@ public class AdressableInstantiator
     public String cloudURL = "https://myserver.com/";
 
     LoaderController loaderController = new LoaderController();
+    UpdateManager updateManager;
+    LevelController level;
 
-    public void Initialize(List<Aasd> adressablessList, UpdateManager up)
+    public void Initialize(List<Aasd> adressablessList, UpdateManager up, LevelController level)
     {
         assetReferences = adressablessList;
 
@@ -37,6 +39,8 @@ public class AdressableInstantiator
             ChangeAssetUrlToPrivateServer;
         }
         loadedAssets = new Dictionary<string, GameObject>();
+        updateManager = up;
+        this.level = level;
         LoadAssets(up);
     }
     protected string ChangeAssetUrlToPrivateServer(IResourceLocation location)
@@ -58,10 +62,11 @@ public class AdressableInstantiator
     private IEnumerator LoadAssetsCoroutine()
     {
         Debug.Log("CoRoutine");
-        int assetsToLoad = assetReferences[(int)(1 / 6)].refe.Count;
+        int index = 1;
+        int assetsToLoad = assetReferences[(int)(index / 6)].refe.Count;
         int assetsLoaded = 0;
 
-        foreach (AssetReference assetReference in assetReferences[(int)(1 / 6)].refe)
+        foreach (AssetReference assetReference in assetReferences[(int)(index / 6)].refe)
         {
             AsyncOperationHandle<GameObject> handle =
            assetReference.LoadAssetAsync<GameObject>();
@@ -71,12 +76,15 @@ public class AdressableInstantiator
                 String assetName = handle.Result.name.Split(" ")[0];
                 loadedAssets.Add(assetName, handle.Result);
                 assetsLoaded++;
+                index++;
             }
         }
 
         if (assetsLoaded == assetsToLoad)
         {
+            Debug.Log("Assets subidos: " + assetsLoaded);
             OnLoadComplete?.Invoke();
+            level.Start(updateManager, updateManager.PaddleSpawnPoint, this);
         }
     }
 
@@ -89,9 +97,13 @@ public class AdressableInstantiator
     {
         if (loadedAssets.ContainsKey(assetName))
         {
-            return GameObject.Instantiate(loadedAssets[assetName]);
+            return loadedAssets[assetName];
         }
-        Debug.LogError($"Asset '{assetName}' not found.");
+        Debug.LogError($"Asset '{assetName}' not found. Available assets:");
+        foreach (var key in loadedAssets.Keys)
+        {
+            Debug.Log($"- {key}");
+        }
         return null;
     }
 }
