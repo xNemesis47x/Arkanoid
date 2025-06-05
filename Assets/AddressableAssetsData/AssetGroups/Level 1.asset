@@ -37,11 +37,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 232c70d79b60b9d44a02d9cfe20e078f
-    m_Address: Assets/Prefabs/background.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 688189b2caaa53e459ba289bdfe83c8b, type: 2}
   m_SchemaSet:
