@@ -6,6 +6,7 @@ public class UIView
 {
     private Image menuScreen;
     private Image winScreen;
+    private Image definetelyWinScreen;
     private Image defeatScreen;
     private Image pauseScreen;
     private VideoPlayer videoController;
@@ -14,10 +15,11 @@ public class UIView
     private TMP_Text levelsText;
     private TMP_Text pointsText;
 
-    public UIView(TMP_Text lives, TMP_Text levels, TMP_Text points, Image menu, Image win, Image defeat, Image pause, VideoPlayer splashVideo)
+    public UIView(TMP_Text lives, TMP_Text levels, TMP_Text points, Image menu, Image win, Image definetelyWin, Image defeat, Image pause, VideoPlayer splashVideo)
     {
         menuScreen = menu;
         winScreen = win;
+        definetelyWinScreen = definetelyWin;
         defeatScreen = defeat;
         pauseScreen = pause;
         videoController = splashVideo;
@@ -62,6 +64,11 @@ public class UIView
     public void ShowWinScreen(bool isActive)
     {
         winScreen.gameObject.SetActive(isActive);
+    }
+
+    public void ShowDefinetelyWinScreen(bool isActive)
+    {
+        definetelyWinScreen.gameObject.SetActive(isActive);
     }
 
     public void ShowDefeatScreen(bool isActive)

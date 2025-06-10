@@ -15,6 +15,8 @@ public class UpdateManager : MonoBehaviour
 
     public event Action OnRestartGame;
 
+    public event Action OnNextLevel;
+
     private AdressableInstantiator adressable;
 
     public LevelController LevelController { get; private set; }
@@ -108,7 +110,13 @@ public class UpdateManager : MonoBehaviour
     public void RestartGame()
     {
         OnRestartGame?.Invoke();
-        LevelController.CurrentPaddle.Lives = 3;
+        UIManager.Instance.Game();
+        Time.timeScale = 1f;
+    }
+
+    public void NextGame()
+    {
+        OnNextLevel?.Invoke();
         UIManager.Instance.Game();
         Time.timeScale = 1f;
     }

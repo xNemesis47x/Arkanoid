@@ -61,7 +61,6 @@ public class AdressableInstantiator
 
     private IEnumerator LoadAssetsCoroutine()
     {
-        Debug.Log("CoRoutine");
         int index = 1;
         int assetsToLoad = assetReferences[(int)(index / 6)].refe.Count;
         int assetsLoaded = 0;

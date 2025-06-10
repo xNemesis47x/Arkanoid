@@ -42,6 +42,7 @@ public class PaddleController : IUpdatable
         SpawnNewBall();
 
         UpdateManager.OnRestartGame += RestartBalls;
+        UpdateManager.OnNextLevel += RestartBalls;
     }
 
     public void CustomUpdate(float deltaTime)

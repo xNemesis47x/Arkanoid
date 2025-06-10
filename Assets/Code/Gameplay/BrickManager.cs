@@ -23,35 +23,44 @@ public class BrickManager
         brickContainer = currentUM.BrickContainer;
         brickPrefab = adressable.GetInstance("Brick");
         currentAdressable = adressable;
-        InitializeBricks(currentUM);
+        List<Vector2Int> layout = GenerateRandomBrickPositions(10, 10, 5);
+        InitializeBricks(currentUM, layout);
     }
 
-    public void InitializeBricks(UpdateManager currentUM)
+    public void InitializeBricks(UpdateManager currentUM, List<Vector2Int> layout)
     {
         RecycleBricks();
-
-        int columns = 10;
-        int rows = 5;
 
         Vector2 brickSize = brickPrefab.GetComponent<Renderer>().bounds.size;
         float spacingX = brickSize.x + 0.1f; // le das 0.1 extra para que no se toquen
         float spacingY = brickSize.y + 0.1f;
 
-        Vector2 startPosition = new Vector2(-((columns - 1) * spacingX) / 2f, 4f);
+        Vector2 startPosition = new Vector2(-(10 - 1) * spacingX / 2f, 4f);
 
-        for (int y = 0; y < rows; y++)
+        foreach (Vector2Int pos in layout)
         {
-            for (int x = 0; x < columns; x++)
-            {
-                Vector2 spawnPos = startPosition + new Vector2(x * spacingX, -y * spacingY);
-                GameObject brickGO = GetBrick(spawnPos);
+            Vector2 spawnPos = startPosition + new Vector2(pos.x * spacingX, -pos.y * spacingY);
+            GameObject brickGO = GetBrick(spawnPos);
 
-                Brick brick = GetLogic();
-                bool containsPowerUp = Random.value < 0.1f; // 10% chance
-                brick.Initialize(brickSize, brickGO.transform, this, currentUM, currentAdressable, containsPowerUp);
-                AllBricks.Add(brick);
-            }
+            Brick brick = GetLogic();
+            bool containsPowerUp = Random.value < 0.1f;
+            brick.Initialize(brickSize, brickGO.transform, this, currentUM, currentAdressable, containsPowerUp);
+            AllBricks.Add(brick);
         }
+    }
+
+    List<Vector2Int> GenerateRandomBrickPositions(int count, int maxColumns, int maxRows)
+    {
+        HashSet<Vector2Int> positions = new HashSet<Vector2Int>();
+
+        while (positions.Count < count)
+        {
+            int x = Random.Range(0, maxColumns);
+            int y = Random.Range(0, maxRows);
+            positions.Add(new Vector2Int(x, y));
+        }
+
+        return positions.ToList();
     }
 
     private GameObject GetBrick(Vector2 spawnPos)

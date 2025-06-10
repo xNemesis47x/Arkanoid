@@ -22,6 +22,7 @@ public class PowerUp : IUpdatable
         updateManager = currentUM;
 
         updateManager.OnRestartGame += RestartPowerUps;
+        updateManager.OnNextLevel += RestartPowerUps;
     }
 
     public void CustomUpdate(float deltaTime)

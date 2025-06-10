@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [Header("Imagenes")]
     [SerializeField] private Image menuScreen;
     [SerializeField] private Image winScreen;
+    [SerializeField] private Image definetelyWinScreen;
     [SerializeField] private Image defeatScreen;
     [SerializeField] private Image pauseScreen;
     [SerializeField] private VideoPlayer videoController;
@@ -40,7 +41,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         currentModel = new UIModel(updateManager.LevelController);
-        currentView = new UIView(livesText, levelsText, pointsText, menuScreen, winScreen, defeatScreen, pauseScreen, videoController);
+        currentView = new UIView(livesText, levelsText, pointsText, menuScreen, winScreen, definetelyWinScreen, defeatScreen, pauseScreen, videoController);
 
         currentController = new UIController(currentModel, currentView);
     }
@@ -64,6 +65,11 @@ public class UIManager : MonoBehaviour
     public void ShowWin()
     {
         currentController.PlayerWin();
+    }
+
+    public void ShowDefinetelyWin()
+    {
+        currentController.PlayerDefintelyWin();
     }
 
     public void ShowDefeat()

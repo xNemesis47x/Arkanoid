@@ -19,6 +19,7 @@ public class UIController
     {
         view.ShowMenuScreen(true);
         view.ShowWinScreen(false);
+        view.ShowDefinetelyWinScreen(false);
         view.ShowDefeatScreen(false);
         view.ShowPauseScreen(false);
         view.ShowSplashScreen(false);
@@ -28,6 +29,7 @@ public class UIController
     {
         view.ShowMenuScreen(false);
         view.ShowWinScreen(false);
+        view.ShowDefinetelyWinScreen(false);
         view.ShowDefeatScreen(false);
         view.ShowPauseScreen(false);
         model.UpdateLevels();
@@ -59,6 +61,11 @@ public class UIController
     public void PlayerWin()
     {
         view.ShowWinScreen(true);
+    }
+
+    public void PlayerDefintelyWin()
+    {
+        view.ShowDefinetelyWinScreen(true);
     }
 
     public void PlayerPause()
