@@ -23,7 +23,7 @@ public class BrickManager
         brickContainer = currentUM.BrickContainer;
         brickPrefab = adressable.GetInstance("Brick");
         currentAdressable = adressable;
-        List<Vector2Int> layout = GenerateRandomBrickPositions(10, 10, 5);
+        List<Vector2Int> layout = GenerateRandomBrickPositions(20, 10, 5);
         InitializeBricks(currentUM, layout);
     }
 
