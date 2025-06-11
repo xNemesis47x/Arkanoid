@@ -7,7 +7,7 @@ public class BrickManager
 {
     public static BrickManager Instance = new BrickManager();
 
-    private GameObject brickPrefab;
+    public GameObject brickPrefab;
     private Transform brickContainer;
 
     public List<Brick> AllBricks { get; private set; } = new List<Brick>();
@@ -16,13 +16,22 @@ public class BrickManager
 
     private AdressableInstantiator currentAdressable;
 
+    public Dictionary<int, GameObject> BrickPrefabsByLife { get; private set; } = new();
+
     public void Initialize(UpdateManager currentUM, AdressableInstantiator adressable)
     {
         InactiveBricksLogic = new Queue<Brick>();
         InactiveBrick = new Queue<GameObject>();
         brickContainer = currentUM.BrickContainer;
-        brickPrefab = adressable.GetInstance("Brick");
         currentAdressable = adressable;
+
+        BrickPrefabsByLife[1] = adressable.GetInstance("Brick_Life1");
+        BrickPrefabsByLife[2] = adressable.GetInstance("Brick_Life2");
+        BrickPrefabsByLife[3] = adressable.GetInstance("Brick_Life3");
+        BrickPrefabsByLife[4] = adressable.GetInstance("Brick_Life4");
+
+        brickPrefab = BrickPrefabsByLife[4]; // usar el más fuerte para tamaño base
+
         List<Vector2Int> layout = GenerateRandomBrickPositions(20, 10, 5);
         InitializeBricks(currentUM, layout);
     }

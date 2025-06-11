@@ -110,22 +110,44 @@ public class Brick
         if (brickRenderer == null) return;
 
         Color color;
+        GameObject newPrefab = null;
 
         switch (Life)
         {
             case 4: 
-                color = Color.magenta; 
+                color = Color.magenta;
+                newPrefab = brickManager.BrickPrefabsByLife[4];
                 break;
             case 3:
                 color = Color.green;
+                newPrefab = brickManager.BrickPrefabsByLife[3];
                 break;
             case 2:
                 color = Color.blue;
+                newPrefab = brickManager.BrickPrefabsByLife[2];
                 break;
             case 1:
             default:
                 color = Color.cyan;
+                newPrefab = brickManager.BrickPrefabsByLife[1];
                 break;
+        }
+
+        if (newPrefab != null)
+        {
+            MeshFilter newFilter = newPrefab.GetComponent<MeshFilter>();
+            Renderer newRenderer = newPrefab.GetComponent<Renderer>();
+
+            MeshFilter currentFilter = BrickObject.GetComponent<MeshFilter>();
+            if (newFilter != null && currentFilter != null)
+            {
+                currentFilter.mesh = newFilter.sharedMesh;
+            }
+
+            if (newRenderer != null)
+            {
+                brickRenderer.sharedMaterial = newRenderer.sharedMaterial;
+            }
         }
 
         brickRenderer.GetPropertyBlock(block);
