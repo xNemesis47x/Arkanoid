@@ -70,7 +70,7 @@ public class Brick
     private void EventPowerUp(PowerUp powerUp, GameObject newPowerUp)
     {
         powerUp.ActivePowerUps.Remove(newPowerUp);
-        MultiBall multiBall = new MultiBall(updateManager.GetPaddle());
+        MultiBall multiBall = new MultiBall(updateManager.GetPaddle(), updateManager.PowerUpScriptable, updateManager);
         multiBall.SpawnMultiBall();
     }
 

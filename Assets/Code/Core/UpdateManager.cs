@@ -5,21 +5,29 @@ using UnityEngine;
 
 public class UpdateManager : MonoBehaviour
 {
-    public Transform BallContainer;
+    [field: SerializeField] public Transform BallContainer { get; private set; }
 
-    public Transform PaddleSpawnPoint;
+    [field: SerializeField] public Transform PaddleSpawnPoint { get; private set; }
 
-    public Transform BrickContainer;
+    [field: SerializeField] public Transform BrickContainer { get; private set; }
 
-    public List<Aasd> assetReferences;
+    [field: SerializeField] public List<Aasd> assetReferences { get; private set; }
+
+    [field: SerializeField] public ScriptablePowerUps PowerUpScriptable { get; private set; }
+
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip music;
+    [field: SerializeField] public AudioClip hitBrick { get; private set; }
 
     public event Action OnRestartGame;
 
     public event Action OnNextLevel;
 
-    private AdressableInstantiator adressable;
+    public AudioManager CurrentAudioManager { get; private set; }
 
     public LevelController LevelController { get; private set; }
+
+    private AdressableInstantiator adressable;
 
     private UpdateManager Instance;
 
@@ -39,12 +47,14 @@ public class UpdateManager : MonoBehaviour
 
         adressable = new AdressableInstantiator();
         LevelController = new LevelController();
+        CurrentAudioManager = new AudioManager(audioSource);
     }
 
     private void Start()
     {
         Time.timeScale = 0f;
         adressable.Initialize(assetReferences, Instance, LevelController);
+        CurrentAudioManager.PlayMusic(music);
         UIManager.Instance.SplashScreen();
     }
 

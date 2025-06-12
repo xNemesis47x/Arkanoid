@@ -20,7 +20,7 @@ public class PaddleController : IUpdatable
     public List<BallController> ActiveBalls { get; private set; } = new List<BallController>();
     public Queue<GameObject> InactiveObjectBalls { get; private set; } = new Queue<GameObject>();
     public Queue<BallController> InactiveLogicBalls { get; private set; } = new Queue<BallController>();
-    public UpdateManager UpdateManager { get; private set; }
+    private UpdateManager updateManager;
 
     public void Initialize(Renderer rendererFake, Transform transform, UpdateManager currentUM, AdressableInstantiator adressable)
     {
@@ -38,11 +38,11 @@ public class PaddleController : IUpdatable
         Position = paddleTransform.position;
 
         currentUM.Register(this);
-        UpdateManager = currentUM;
+        updateManager = currentUM;
         SpawnNewBall();
 
-        UpdateManager.OnRestartGame += RestartBalls;
-        UpdateManager.OnNextLevel += RestartBalls;
+        updateManager.OnRestartGame += RestartBalls;
+        updateManager.OnNextLevel += RestartBalls;
     }
 
     public void CustomUpdate(float deltaTime)
@@ -74,7 +74,7 @@ public class PaddleController : IUpdatable
         GameObject newBallGO = GetBall();
         Vector3 ballSize = new Vector3(0.5f, 0.5f, 0f);
         BallController ball = GetLogic();
-        ball.Initialize(this, ballSize, newBallGO.transform);
+        ball.Initialize(this, ballSize, newBallGO.transform, updateManager);
 
 
         ball.SetDestroyCallback(() => EventBall(newBallGO, ball));
@@ -142,7 +142,7 @@ public class PaddleController : IUpdatable
     {
         if (Lives == 0)
         {
-            UpdateManager.PauseGame();
+            updateManager.PauseGame();
             UIManager.Instance.ShowDefeat();
         }
     }

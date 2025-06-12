@@ -8,6 +8,8 @@ public class BallController : IUpdatable
     private Vector3 pos;
     private PaddleController paddleOwner;
     private Transform ballTransform;
+    private UpdateManager currentUM;
+    private AudioClip hitBrick;
 
     public event System.Action onDestroyBall;
     public bool IsLaunched { get; private set; }
@@ -17,7 +19,7 @@ public class BallController : IUpdatable
         onDestroyBall = _event;
     }
 
-    public void Initialize(PaddleController owner, Vector3 sizeFake, Transform transform)
+    public void Initialize(PaddleController owner, Vector3 sizeFake, Transform transform, UpdateManager updateManager)
     {
         paddleOwner = owner;
         IsLaunched = false;
@@ -25,16 +27,18 @@ public class BallController : IUpdatable
         size = sizeFake;
         pos = paddleOwner.Position + Vector3.up * 0.5f;
         ballTransform = transform;
+        currentUM = updateManager;
 
         ballTransform.position = pos;
+        hitBrick = currentUM.hitBrick;
 
-        paddleOwner.UpdateManager.Register(this);
+        currentUM.Register(this);
     }
 
     //Lo suma a la lista de objetos a eliminar 
     public void Dispose()
     {
-        paddleOwner.UpdateManager.Unregister(this);
+        currentUM.Unregister(this);
         onDestroyBall?.Invoke();
     }
 
@@ -147,6 +151,7 @@ public class BallController : IUpdatable
 
                 brick.Life--;
                 brick.UpdateColor();
+                currentUM.CurrentAudioManager.PlaySound(hitBrick);
 
                 if (brick.Life == 0)
                 {

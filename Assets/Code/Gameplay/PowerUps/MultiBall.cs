@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class MultiBall
 {
+    private UpdateManager currentUM;
     private PaddleController paddleController;
     private int ballsAmount;
 
-    public MultiBall(PaddleController currentPaddle)
+    public MultiBall(PaddleController currentPaddle, ScriptablePowerUps multiBall, UpdateManager updateManager)
     {
-        ballsAmount = 2;
+        ballsAmount = multiBall.ballsAmount;
         paddleController = currentPaddle;
+        currentUM = updateManager;
     }
 
     public void SpawnMultiBall()
@@ -19,7 +21,7 @@ public class MultiBall
             Vector3 ballSize = new Vector3(0.5f, 0.5f, 0f);
 
             BallController ball = paddleController.GetLogic();
-            ball.Initialize(paddleController, ballSize, newBallGO.transform);
+            ball.Initialize(paddleController, ballSize, newBallGO.transform, currentUM);
             ball.Launch();
 
             ball.SetDestroyCallback(() => EventBall(newBallGO, ball));
