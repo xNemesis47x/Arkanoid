@@ -58,6 +58,7 @@ public class UpdateManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         adressable.Initialize(assetReferences, Instance, LevelController);
+        LevelController.InitializeLevels();
         CurrentAudioManager.PlayMusic(music);
         UIManager.Instance.SplashScreen();
     }

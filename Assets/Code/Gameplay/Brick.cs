@@ -90,9 +90,7 @@ public class Brick
     public void CheckWin()
     {
         int countLevels = updateManager.LevelController.CountLevels;
-        int totalLevels = updateManager.LevelController.Levels.Count;
-        countLevels++;
-        countLevels -= 2;
+        int totalLevels = updateManager.LevelController.Levels.Count - 1;
         if (brickManager.GetActiveBricks() == 0 && countLevels < totalLevels)
         {
             UIManager.Instance.ShowWin();

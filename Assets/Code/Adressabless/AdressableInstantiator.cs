@@ -118,7 +118,9 @@ public class AdressableInstantiator
         {
             Debug.Log("Assets cargados: " + assetsLoaded);
             OnLoadComplete?.Invoke();
+            Time.timeScale = 0f;
             level.Start(updateManager, this);
+            Time.timeScale = 1f;
         }
     }
 

@@ -21,7 +21,9 @@ public class PowerUp : IUpdatable
         currentUM.Register(this);
         updateManager = currentUM;
 
+        updateManager.OnRestartGame -= RestartPowerUps;
         updateManager.OnRestartGame += RestartPowerUps;
+        updateManager.OnNextLevel -= RestartPowerUps;
         updateManager.OnNextLevel += RestartPowerUps;
     }
 

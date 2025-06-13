@@ -14,28 +14,27 @@ public class LevelController
 
     public PaddleController CurrentPaddle { get; private set; }
 
-    public int CountLevels { get; set; }
-    public int CountPoints { get; set; }
+    public int CountLevels { get; set; } = 0;
+    public int CountPoints { get; set; } = 0;
     public List<ILevel> Levels { get; private set; } = new List<ILevel>(); 
 
     public void Start(UpdateManager currentUM, AdressableInstantiator currentAdress)
     {
-        CountLevels = 1;
-        CountPoints = 0;
         updateManager = currentUM;
         adressable = currentAdress;
-        paddlePrefab = adressable.GetInstancePrefabs("paddlePrefab");
         paddleSpawnPoint = updateManager.PaddleSpawnPoint;
         background = new BackgroundLogic(adressable, updateManager.firstSpriteRenderer, updateManager.secondSpriteRenderer, updateManager.thirdSpriteRenderer);
         Initialize();
-        InitializeLevels();
         BrickManager.Instance.Initialize(currentUM, currentAdress);
+        currentUM.OnRestartGame -= RestartLevel;
         currentUM.OnRestartGame += RestartLevel;
+        currentUM.OnNextLevel -= NextLevel;
         currentUM.OnNextLevel += NextLevel;
     }
 
     public void Initialize()
     {
+        paddlePrefab = adressable.GetInstancePrefabs("paddlePrefab");
         if (paddlePrefab != null && paddleSpawnPoint != null && CurrentPaddle == null)
         {
             GameObject paddleGO = GameObject.Instantiate(paddlePrefab, paddleSpawnPoint.position, paddleSpawnPoint.rotation);
@@ -53,12 +52,14 @@ public class LevelController
         CountLevels = 1;
         CountPoints = 0;
         CurrentPaddle.Lives = 3;
+        adressable.LoadGroupLevels(CountLevels);
         BrickManager.Instance.Initialize(updateManager, adressable);
     }
 
-    private void InitializeLevels()
+    public void InitializeLevels()
     {
         Levels.Add(new Level1());
+        Levels.Add(new Level2());
         Levels.Add(new Level2());
         Levels.Add(new Level2());
         Levels.Add(new Level2());
@@ -74,12 +75,11 @@ public class LevelController
     public void NextLevel()
     {
         CountLevels++;
-        int index = CountLevels - 2;
         
-        if (index <= Levels.Count - 1)
+        if (CountLevels <= Levels.Count -1)
         {
             adressable.LoadGroupLevels(CountLevels);
-            BrickManager.Instance.InitializeBricks(updateManager, Levels[index].Layout());
+            BrickManager.Instance.InitializeBricks(updateManager, Levels[CountLevels].Layout());
         }
         else
         {

@@ -45,7 +45,9 @@ public class PaddleController : IUpdatable
         updateManager = currentUM;
         SpawnNewBall();
 
+        updateManager.OnRestartGame -= RestartBalls;
         updateManager.OnRestartGame += RestartBalls;
+        updateManager.OnNextLevel -= RestartBalls;
         updateManager.OnNextLevel += RestartBalls;
     }
 
@@ -56,6 +58,15 @@ public class PaddleController : IUpdatable
         float input = Input.GetAxisRaw("Horizontal");
         Vector3 movement = new(input * speed * deltaTime, 0f, 0f);
         Position += movement;
+
+        if (Input.GetKeyDown(KeyCode.Space) && Math.Abs(Time.timeScale) > 0.01f)
+        {
+            foreach (BallController ball in ActiveBalls)
+            {
+                if (!ball.IsLaunched)
+                    ball.Launch();
+            }
+        }
 
         HandleScreenBounds();
 

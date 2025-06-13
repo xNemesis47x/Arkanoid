@@ -158,7 +158,6 @@ public class BallController : IUpdatable
                     brick.DesactivateBrick();
                     brick.OnDesactivateBrick?.Invoke();
                     UIManager.Instance.AddPoints();
-                    brick.CheckWin();
                 }
 
                 break;
