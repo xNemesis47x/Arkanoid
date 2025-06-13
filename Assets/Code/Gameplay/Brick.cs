@@ -59,7 +59,7 @@ public class Brick
 
     private void SpawnPowerUp()
     {
-        GameObject powerUpPrefab = currentAdressable.GetInstance("PowerUp");
+        GameObject powerUpPrefab = currentAdressable.GetInstancePrefabs("PowerUp");
         GameObject newPowerUp = GameObject.Instantiate(powerUpPrefab, Position, Quaternion.identity);
         PowerUp powerUp = new PowerUp(newPowerUp.transform, new Vector2(0.5f, 0.5f), updateManager);
         powerUp.ActivePowerUps.Add(newPowerUp);

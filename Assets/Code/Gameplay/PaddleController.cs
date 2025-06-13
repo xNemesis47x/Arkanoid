@@ -19,14 +19,18 @@ public class PaddleController : IUpdatable
     public int Lives { get; set; }
     public List<BallController> ActiveBalls { get; private set; } = new List<BallController>();
     public Queue<GameObject> InactiveObjectBalls { get; private set; } = new Queue<GameObject>();
+    
+    public Action<float> OnMovePaddle; 
+
     public Queue<BallController> InactiveLogicBalls { get; private set; } = new Queue<BallController>();
+    
     private UpdateManager updateManager;
 
     public void Initialize(Renderer rendererFake, Transform transform, UpdateManager currentUM, AdressableInstantiator adressable)
     {
         Lives = 3;
         ballContainer = currentUM.BallContainer;
-        ballPrefab = adressable.GetInstance("ballPrefab");
+        ballPrefab = adressable.GetInstancePrefabs("ballPrefab");
         Renderer rend = rendererFake;
         paddleTransform = transform;
 
@@ -47,21 +51,21 @@ public class PaddleController : IUpdatable
 
     public void CustomUpdate(float deltaTime)
     {
+        Vector3 oldPosition = Position;
+
         float input = Input.GetAxisRaw("Horizontal");
         Vector3 movement = new(input * speed * deltaTime, 0f, 0f);
         Position += movement;
 
-        if (Input.GetKeyDown(KeyCode.Space) && Math.Abs(Time.timeScale) > 0.01f)
+        HandleScreenBounds();
+
+        float deltaMovement = Position.x - oldPosition.x;
+        if (Mathf.Abs(deltaMovement) > 0.001f)
         {
-            foreach (BallController ball in ActiveBalls)
-            {
-                if (!ball.IsLaunched)
-                    ball.Launch();
-            }
+            OnMovePaddle?.Invoke(deltaMovement);
         }
 
         paddleTransform.position = Position;
-        HandleScreenBounds();
     }
 
     public GameObject SpawnNewBall()

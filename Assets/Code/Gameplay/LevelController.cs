@@ -10,20 +10,23 @@ public class LevelController
     private AdressableInstantiator adressable;
     private UpdateManager updateManager;
 
+    private BackgroundLogic background;
+
     public PaddleController CurrentPaddle { get; private set; }
 
-    public int CountLevels { get; private set; }
+    public int CountLevels { get; set; }
     public int CountPoints { get; set; }
     public List<ILevel> Levels { get; private set; } = new List<ILevel>(); 
 
-    public void Start(UpdateManager currentUM, Transform paddleSpawn, AdressableInstantiator currentAdress)
+    public void Start(UpdateManager currentUM, AdressableInstantiator currentAdress)
     {
         CountLevels = 1;
         CountPoints = 0;
         updateManager = currentUM;
         adressable = currentAdress;
-        paddlePrefab = adressable.GetInstance("paddlePrefab");
-        paddleSpawnPoint = paddleSpawn;
+        paddlePrefab = adressable.GetInstancePrefabs("paddlePrefab");
+        paddleSpawnPoint = updateManager.PaddleSpawnPoint;
+        background = new BackgroundLogic(adressable, updateManager.firstSpriteRenderer, updateManager.secondSpriteRenderer, updateManager.thirdSpriteRenderer);
         Initialize();
         InitializeLevels();
         BrickManager.Instance.Initialize(currentUM, currentAdress);
@@ -40,6 +43,8 @@ public class LevelController
 
             CurrentPaddle = new PaddleController();
             CurrentPaddle.Initialize(paddleRenderer, paddleGO.transform, updateManager, adressable);
+
+            CurrentPaddle.OnMovePaddle += background.ParallaxEffect;
         }
     }
 
@@ -55,6 +60,14 @@ public class LevelController
     {
         Levels.Add(new Level1());
         Levels.Add(new Level2());
+        Levels.Add(new Level2());
+        Levels.Add(new Level2());
+        Levels.Add(new Level2());
+        Levels.Add(new Level2());
+        Levels.Add(new Level2());
+        Levels.Add(new Level2());
+        Levels.Add(new Level2());
+        Levels.Add(new Level2());
     }
 
 
@@ -65,6 +78,7 @@ public class LevelController
         
         if (index <= Levels.Count - 1)
         {
+            adressable.LoadGroupLevels(CountLevels);
             BrickManager.Instance.InitializeBricks(updateManager, Levels[index].Layout());
         }
         else

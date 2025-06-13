@@ -5,12 +5,14 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
+using UnityEngine.UIElements;
 
 [Serializable]
 public class Aasd
 {
     public string name = "";
-    public List<AssetReferenceGameObject> refe = new();
+    public List<AssetReferenceGameObject> prefabs = new();
+    public List<AssetReference> background = new();
 }
 
 public class AdressableInstantiator
@@ -18,6 +20,9 @@ public class AdressableInstantiator
     [SerializeField]
     private List<Aasd> assetReferences = new List<Aasd>();
     public Dictionary<string, GameObject> loadedAssets;
+    public Dictionary<string, Sprite> loadedBackground;
+    private int currentGroupIndex;
+    private List<AsyncOperationHandle> loadedHandles = new List<AsyncOperationHandle>();
     public event Action OnLoadComplete;
     public bool useRemoteAssets = true;
     public String localURL = "http://localhost:3000/";
@@ -39,10 +44,13 @@ public class AdressableInstantiator
             ChangeAssetUrlToPrivateServer;
         }
         loadedAssets = new Dictionary<string, GameObject>();
+        loadedBackground = new Dictionary<string, Sprite>();
         updateManager = up;
         this.level = level;
-        LoadAssets(up);
+        currentGroupIndex = -1;
+        LoadGroupLevels(level.CountLevels);
     }
+
     protected string ChangeAssetUrlToPrivateServer(IResourceLocation location)
     {
         String assetURL = location.InternalId;
@@ -54,37 +62,75 @@ public class AdressableInstantiator
         return location.InternalId;
     }
 
-    private void LoadAssets(UpdateManager up)
+    public void LoadGroupLevels(int level)
     {
-        up.CoRoutineStart(LoadAssetsCoroutine());
+        int groupIndex = (level - 1) / 5; // Ejemplo: niveles 1-5 grupo 0, 6-10 grupo 1, etc.
+
+        if (groupIndex == currentGroupIndex)
+        {
+            return;
+        }
+
+        UnloadAssets();
+        currentGroupIndex = groupIndex;
+
+        updateManager.CoRoutineStart(LoadAssetsCoroutine(groupIndex));
     }
 
-    private IEnumerator LoadAssetsCoroutine()
+    private IEnumerator LoadAssetsCoroutine(int groupIndex)
     {
-        int index = 1;
-        int assetsToLoad = assetReferences[(int)(index / 6)].refe.Count;
+        loadedHandles.Clear();
+        loadedAssets.Clear();
+        loadedBackground.Clear();
+
+        int assetsToLoad = assetReferences[groupIndex].prefabs.Count + assetReferences[groupIndex].background.Count;
         int assetsLoaded = 0;
 
-        foreach (AssetReference assetReference in assetReferences[(int)(index / 6)].refe)
+        foreach (AssetReference assetReference in assetReferences[groupIndex].prefabs)
         {
-            AsyncOperationHandle<GameObject> handle =
-           assetReference.LoadAssetAsync<GameObject>();
+            AsyncOperationHandle<GameObject> handle = assetReference.LoadAssetAsync<GameObject>();
             yield return handle;
+
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
-                String assetName = handle.Result.name.Split(" ")[0];
+                loadedHandles.Add(handle);
+                string assetName = handle.Result.name.Split(' ')[0];
                 loadedAssets.Add(assetName, handle.Result);
                 assetsLoaded++;
-                index++;
+            }
+        }
+
+        foreach (AssetReference assetReference in assetReferences[groupIndex].background)
+        {
+            AsyncOperationHandle<Sprite> handle = assetReference.LoadAssetAsync<Sprite>();
+            yield return handle;
+
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                loadedHandles.Add(handle);
+                string assetName = handle.Result.name.Split(' ')[0];
+                loadedBackground.Add(assetName, handle.Result);
+                assetsLoaded++;
             }
         }
 
         if (assetsLoaded == assetsToLoad)
         {
-            Debug.Log("Assets subidos: " + assetsLoaded);
+            Debug.Log("Assets cargados: " + assetsLoaded);
             OnLoadComplete?.Invoke();
-            level.Start(updateManager, updateManager.PaddleSpawnPoint, this);
+            level.Start(updateManager, this);
         }
+    }
+
+    public void UnloadAssets()
+    {
+        foreach (AsyncOperationHandle handle in loadedHandles)
+        {
+            Addressables.Release(handle);
+        }
+        loadedHandles.Clear();
+        loadedAssets.Clear();
+        loadedBackground.Clear();
     }
 
     public void SubscribeOnLoadComplete(Action callback)
@@ -92,14 +138,28 @@ public class AdressableInstantiator
         OnLoadComplete += callback;
     }
 
-    public GameObject GetInstance(string assetName)
+    public GameObject GetInstancePrefabs(string assetName)
     {
         if (loadedAssets.ContainsKey(assetName))
         {
             return loadedAssets[assetName];
         }
         Debug.LogError($"Asset '{assetName}' not found. Available assets:");
-        foreach (var key in loadedAssets.Keys)
+        foreach (string key in loadedAssets.Keys)
+        {
+            Debug.Log($"- {key}");
+        }
+        return null;
+    }
+
+    public Sprite GetInstanceSprite(string assetName)
+    {
+        if (loadedBackground.ContainsKey(assetName))
+        {
+            return loadedBackground[assetName];
+        }
+        Debug.LogError($"Asset '{assetName}' not found. Available assets:");
+        foreach (string key in loadedBackground.Keys)
         {
             Debug.Log($"- {key}");
         }

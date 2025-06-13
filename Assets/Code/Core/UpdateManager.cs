@@ -19,6 +19,10 @@ public class UpdateManager : MonoBehaviour
     [SerializeField] AudioClip music;
     [field: SerializeField] public AudioClip hitBrick { get; private set; }
 
+    [field: SerializeField] public SpriteRenderer firstSpriteRenderer { get; private set; }
+    [field: SerializeField] public SpriteRenderer secondSpriteRenderer { get; private set; }
+    [field: SerializeField] public SpriteRenderer thirdSpriteRenderer { get; private set; }
+
     public event Action OnRestartGame;
 
     public event Action OnNextLevel;
@@ -82,6 +86,8 @@ public class UpdateManager : MonoBehaviour
             PauseGame();
             UIManager.Instance.ShowPause();
         }
+
+        AddLevel();
     }
 
     // Registrar un objeto que implementa IUpdatable
@@ -134,5 +140,13 @@ public class UpdateManager : MonoBehaviour
     public void CoRoutineStart(IEnumerator coRoutine)
     {
         StartCoroutine(coRoutine);
+    }
+
+    public void AddLevel()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            LevelController.NextLevel();
+        }
     }
 }

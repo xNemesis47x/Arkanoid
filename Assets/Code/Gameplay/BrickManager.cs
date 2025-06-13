@@ -25,10 +25,10 @@ public class BrickManager
         brickContainer = currentUM.BrickContainer;
         currentAdressable = adressable;
 
-        BrickPrefabsByLife[1] = adressable.GetInstance("Brick_Life1");
-        BrickPrefabsByLife[2] = adressable.GetInstance("Brick_Life2");
-        BrickPrefabsByLife[3] = adressable.GetInstance("Brick_Life3");
-        BrickPrefabsByLife[4] = adressable.GetInstance("Brick_Life4");
+        BrickPrefabsByLife[1] = adressable.GetInstancePrefabs("Brick_Life1");
+        BrickPrefabsByLife[2] = adressable.GetInstancePrefabs("Brick_Life2");
+        BrickPrefabsByLife[3] = adressable.GetInstancePrefabs("Brick_Life3");
+        BrickPrefabsByLife[4] = adressable.GetInstancePrefabs("Brick_Life4");
 
         brickPrefab = BrickPrefabsByLife[4]; // usar el más fuerte para tamaño base
 
