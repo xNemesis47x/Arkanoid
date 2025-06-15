@@ -16,7 +16,7 @@ public class LevelController
 
     public int CountLevels { get; set; } = 0;
     public int CountPoints { get; set; } = 0;
-    public List<ILevel> Levels { get; private set; } = new List<ILevel>(); 
+    public List<ILevel> Levels { get; private set; } = new List<ILevel>();
 
     public void Start(UpdateManager currentUM, AdressableInstantiator currentAdress)
     {
@@ -43,9 +43,8 @@ public class LevelController
                 CurrentPaddle.OnMovePaddle += background.ParallaxEffect;
             }
             else
-            {
                 CurrentPaddle.DestroyReference();
-            }
+
             GameObject paddleGO = GameObject.Instantiate(paddlePrefab, paddleSpawnPoint.position, paddleSpawnPoint.rotation);
             Renderer paddleRenderer = paddleGO.GetComponent<Renderer>();
 
@@ -81,8 +80,8 @@ public class LevelController
     public void NextLevel()
     {
         CountLevels++;
-        
-        if (CountLevels <= Levels.Count -1)
+
+        if (CountLevels <= Levels.Count - 1)
         {
             adressable.LoadGroupLevels(CountLevels);
             BrickManager.Instance.InitializeBricks(updateManager, Levels[CountLevels].Layout());
@@ -91,8 +90,8 @@ public class LevelController
         {
             Debug.LogWarning("No hay mas niveles pa");
         }
-        
+
     }
 
-    
+
 }

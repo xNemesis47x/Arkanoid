@@ -40,6 +40,7 @@ public class BallController : IUpdatable
     {
         currentUM.Unregister(this);
         onDestroyBall?.Invoke();
+        onDestroyBall = null;
     }
 
     public void Launch()

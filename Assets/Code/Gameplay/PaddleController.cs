@@ -26,6 +26,8 @@ public class PaddleController : IUpdatable
     
     private UpdateManager updateManager;
 
+    private BallController ballController;
+
     public void Initialize(Renderer rendererFake, Transform transform, UpdateManager currentUM, AdressableInstantiator adressable)
     {
         Lives = 3;
@@ -86,15 +88,18 @@ public class PaddleController : IUpdatable
             return null;
         }
 
+        if (ballController != null)
+            ballController.Dispose();
+
         GameObject newBallGO = GetBall();
         Vector3 ballSize = new Vector3(0.5f, 0.5f, 0f);
-        BallController ball = GetLogic();
-        ball.Initialize(this, ballSize, newBallGO.transform, updateManager);
+        ballController = GetLogic();
+        ballController.Initialize(this, ballSize, newBallGO.transform, updateManager);
 
 
-        ball.SetDestroyCallback(() => EventBall(newBallGO, ball));
+        ballController.SetDestroyCallback(() => EventBall(newBallGO, ballController));
 
-        ActiveBalls.Add(ball);
+        ActiveBalls.Add(ballController);
 
         return newBallGO;
     }
