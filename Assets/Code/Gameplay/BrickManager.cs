@@ -82,7 +82,7 @@ public class BrickManager
             return brick;
         }
 
-        return GameObject.Instantiate(brickPrefab, spawnPos, Quaternion.identity, brickContainer);
+        return GameObject.Instantiate(brickPrefab, spawnPos, Quaternion.Euler(0, 180, 0), brickContainer);
     }
 
     private void RecycleBricks()
