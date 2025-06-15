@@ -17,16 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: fe05ee9bfe8c2a74cb8e72f94d451f12
   m_SerializeEntries:
-  - m_GUID: acfdf62f9be2c124d984bad33aaa7873
-    m_Address: Assets/Prefabs/Brick_Life3.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e72ad595f75b389438d0c752d04845b5
-    m_Address: Assets/Prefabs/paddlePrefab.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b0538ba78c2f99f47b93b005ecbc1963
     m_Address: Assets/Prefabs/PowerUp.prefab
     m_ReadOnly: 0
@@ -37,18 +27,28 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8ba4d9c18a1a6174ca97fd443ec0d385
-    m_Address: Assets/Prefabs/Brick_Life2.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2f6aad171685f8346925613ced2d6acc
+  - m_GUID: 6e6b16f92f3c54043915b31d7769b019
     m_Address: Assets/Prefabs/Brick_Life1.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 01a76d02e59fac547ad7345b159d173b
+  - m_GUID: 69c0109743a51264a835532376e48d20
+    m_Address: Assets/Prefabs/Brick_Life2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 33b3de1e37867864380a2908c6e6d6bd
+    m_Address: Assets/Prefabs/Brick_Life3.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 954e730b8be7a32449490d8e40cd0add
     m_Address: Assets/Prefabs/Brick_Life4.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 271afea8c4ce5344f9b28ac9312d37e5
+    m_Address: Assets/Prefabs/PaddlePrefab.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -170,4 +170,9 @@ public class PaddleController : IUpdatable
         }
         SpawnNewBall();
     }
+
+    public void DestroyReference()
+    {
+        GameObject.Destroy(paddleTransform.gameObject);
+    }
 }

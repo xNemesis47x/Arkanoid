@@ -35,15 +35,21 @@ public class LevelController
     public void Initialize()
     {
         paddlePrefab = adressable.GetInstancePrefabs("paddlePrefab");
-        if (paddlePrefab != null && paddleSpawnPoint != null && CurrentPaddle == null)
+        if (paddlePrefab != null && paddleSpawnPoint != null)
         {
+            if (CurrentPaddle == null)
+            {
+                CurrentPaddle = new PaddleController();
+                CurrentPaddle.OnMovePaddle += background.ParallaxEffect;
+            }
+            else
+            {
+                CurrentPaddle.DestroyReference();
+            }
             GameObject paddleGO = GameObject.Instantiate(paddlePrefab, paddleSpawnPoint.position, paddleSpawnPoint.rotation);
             Renderer paddleRenderer = paddleGO.GetComponent<Renderer>();
 
-            CurrentPaddle = new PaddleController();
             CurrentPaddle.Initialize(paddleRenderer, paddleGO.transform, updateManager, adressable);
-
-            CurrentPaddle.OnMovePaddle += background.ParallaxEffect;
         }
     }
 

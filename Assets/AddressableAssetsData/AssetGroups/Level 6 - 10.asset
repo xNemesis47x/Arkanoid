@@ -17,8 +17,33 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 4bad9fce17219cf46b2c0e96ef37f2c4
   m_SerializeEntries:
-  - m_GUID: 6360b7c27969b964ab5f916b6b9dbe0d
-    m_Address: Assets/Art/3D models/Second group of 3d models/paddle 2.prefab
+  - m_GUID: 8eaedca3df361dd47bd60a35fc24d630
+    m_Address: Assets/Prefabs/Paddle 2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55821ae365cabe94b8a668d8b15f6e8b
+    m_Address: Assets/Prefabs/Brick2_Life2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ebf866d20d9ac1f4e9cd7f7f27446c5b
+    m_Address: Assets/Prefabs/Brick2_Life1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eec4eebb804c5994db35ba54f6f92ebe
+    m_Address: Assets/Prefabs/Brick2_Life3.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1ddb24a9d81329141b5af87786a296b6
+    m_Address: Assets/Prefabs/Brick2_Life4.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cd3156c56ffbd9341a8cc0f6d1a73115
+    m_Address: Assets/Prefabs/Power Up 2.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

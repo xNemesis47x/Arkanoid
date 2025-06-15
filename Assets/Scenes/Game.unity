@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1511,13 +1511,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 407052571}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &479027371
 GameObject:
   m_ObjectHideFlags: 0
@@ -3335,7 +3335,7 @@ MonoBehaviour:
   <assetReferences>k__BackingField:
   - name: Level 1 - 5
     prefabs:
-    - m_AssetGUID: e72ad595f75b389438d0c752d04845b5
+    - m_AssetGUID: 271afea8c4ce5344f9b28ac9312d37e5
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -3347,19 +3347,19 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    - m_AssetGUID: 2f6aad171685f8346925613ced2d6acc
+    - m_AssetGUID: 6e6b16f92f3c54043915b31d7769b019
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    - m_AssetGUID: 8ba4d9c18a1a6174ca97fd443ec0d385
+    - m_AssetGUID: 69c0109743a51264a835532376e48d20
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    - m_AssetGUID: acfdf62f9be2c124d984bad33aaa7873
+    - m_AssetGUID: 33b3de1e37867864380a2908c6e6d6bd
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    - m_AssetGUID: 01a76d02e59fac547ad7345b159d173b
+    - m_AssetGUID: 954e730b8be7a32449490d8e40cd0add
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -3371,11 +3371,11 @@ MonoBehaviour:
       m_EditorAssetChanged: 1
   - name: Level 6 - 10
     prefabs:
-    - m_AssetGUID: 6360b7c27969b964ab5f916b6b9dbe0d
+    - m_AssetGUID: 8eaedca3df361dd47bd60a35fc24d630
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    - m_AssetGUID: b0538ba78c2f99f47b93b005ecbc1963
+    - m_AssetGUID: cd3156c56ffbd9341a8cc0f6d1a73115
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -3383,19 +3383,19 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    - m_AssetGUID: 2f6aad171685f8346925613ced2d6acc
+    - m_AssetGUID: ebf866d20d9ac1f4e9cd7f7f27446c5b
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    - m_AssetGUID: 8ba4d9c18a1a6174ca97fd443ec0d385
+    - m_AssetGUID: 55821ae365cabe94b8a668d8b15f6e8b
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    - m_AssetGUID: acfdf62f9be2c124d984bad33aaa7873
+    - m_AssetGUID: eec4eebb804c5994db35ba54f6f92ebe
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    - m_AssetGUID: 01a76d02e59fac547ad7345b159d173b
+    - m_AssetGUID: 1ddb24a9d81329141b5af87786a296b6
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
@@ -5675,7 +5675,7 @@ VideoPlayer:
   m_AspectRatio: 2
   m_DataSource: 0
   m_TimeUpdateMode: 2
-  m_PlaybackSpeed: 1
+  m_PlaybackSpeed: 1.59
   m_AudioOutputMode: 2
   m_TargetAudioSources:
   - {fileID: 0}
