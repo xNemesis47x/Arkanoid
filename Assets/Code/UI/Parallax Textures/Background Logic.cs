@@ -16,9 +16,9 @@ public class BackgroundLogic
         secondBackGround = secondRenderer;
         thirdBackGround = thirdRenderer;
 
-        firstBackGround.sprite = adressable.GetInstanceSprite("background");
-        secondBackGround.sprite = adressable.GetInstanceSprite("background");
-        thirdBackGround.sprite = adressable.GetInstanceSprite("background");
+        firstBackGround.sprite = adressable.GetInstanceSprite("background1");
+        secondBackGround.sprite = adressable.GetInstanceSprite("background2");
+        thirdBackGround.sprite = adressable.GetInstanceSprite("background3");
     }
 
     public void ParallaxEffect(float deltaX)

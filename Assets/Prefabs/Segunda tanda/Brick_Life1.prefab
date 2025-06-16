@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 75df5eca8d517c74d9ca19e4fb7bbccf, type: 2}
     - target: {fileID: 919132149155446097, guid: 0d6e20e4b14044745bf6d5d9c1f01fcc, type: 3}
       propertyPath: m_Name
-      value: Brick2_Life1
+      value: Brick_Life1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

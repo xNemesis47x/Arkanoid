@@ -642,12 +642,36 @@ PrefabInstance:
       value: thirdBackground
       objectReference: {fileID: 0}
     - target: {fileID: 3104436459080825027, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_Size.x
+      value: 19.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104436459080825027, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_Size.y
+      value: 10.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104436459080825027, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3104436459080825027, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_SortingOrder
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104436459080825027, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962222139731052754, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962222139731052754, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962222139731052754, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4962222139731052754, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3364,8 +3388,18 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     background:
-    - m_AssetGUID: c5fa56bf777be834296fd7e2c258023d
-      m_SubObjectName: background
+    - m_AssetGUID: 9560170416cbade4395c1aff28243d97
+      m_SubObjectName: background3
+      m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      m_EditorAssetChanged: 1
+    - m_AssetGUID: 27cd46451a8291843a37858bd967f3b8
+      m_SubObjectName: background2
+      m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      m_EditorAssetChanged: 1
+    - m_AssetGUID: af193cd5d491ae14690ebe2fdc36eb6f
+      m_SubObjectName: background1
       m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       m_EditorAssetChanged: 1
@@ -3400,8 +3434,18 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     background:
-    - m_AssetGUID: a2da1aa907646c54e8df8e82132fc05e
-      m_SubObjectName: background
+    - m_AssetGUID: 3c68f8859aa0628429be8f1afb0b1aed
+      m_SubObjectName: background3
+      m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      m_EditorAssetChanged: 1
+    - m_AssetGUID: c37ff7788317b5a49823fda37bf59d4b
+      m_SubObjectName: background2
+      m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      m_EditorAssetChanged: 1
+    - m_AssetGUID: 44b2884dfd7004444935f7424eb8169a
+      m_SubObjectName: background1
       m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       m_EditorAssetChanged: 1
@@ -3645,12 +3689,36 @@ PrefabInstance:
       value: secondBackground
       objectReference: {fileID: 0}
     - target: {fileID: 3104436459080825027, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_Size.x
+      value: 19.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104436459080825027, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_Size.y
+      value: 10.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104436459080825027, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3104436459080825027, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104436459080825027, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962222139731052754, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962222139731052754, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962222139731052754, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 4962222139731052754, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6924,12 +6992,32 @@ PrefabInstance:
       value: firstBackground
       objectReference: {fileID: 0}
     - target: {fileID: 3104436459080825027, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_Size.x
+      value: 19.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104436459080825027, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_Size.y
+      value: 10.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104436459080825027, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3104436459080825027, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962222139731052754, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962222139731052754, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962222139731052754, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 4962222139731052754, guid: 232c70d79b60b9d44a02d9cfe20e078f, type: 3}
       propertyPath: m_LocalPosition.x

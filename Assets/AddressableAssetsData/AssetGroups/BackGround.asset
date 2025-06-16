@@ -17,13 +17,33 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 509ea166c47110542a9c5230893202f2
   m_SerializeEntries:
-  - m_GUID: c5fa56bf777be834296fd7e2c258023d
-    m_Address: Assets/Art/2D Sprites/background.png
+  - m_GUID: 9560170416cbade4395c1aff28243d97
+    m_Address: Assets/Art/2D Sprites/backgrounds/1-5/background3.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a2da1aa907646c54e8df8e82132fc05e
-    m_Address: Assets/Art/2D Sprites/Second group of 2d sprites/background.png
+  - m_GUID: 27cd46451a8291843a37858bd967f3b8
+    m_Address: Assets/Art/2D Sprites/backgrounds/1-5/background2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: af193cd5d491ae14690ebe2fdc36eb6f
+    m_Address: Assets/Art/2D Sprites/backgrounds/1-5/background1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c37ff7788317b5a49823fda37bf59d4b
+    m_Address: Assets/Art/2D Sprites/backgrounds/6-10/background2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3c68f8859aa0628429be8f1afb0b1aed
+    m_Address: Assets/Art/2D Sprites/backgrounds/6-10/background3.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 44b2884dfd7004444935f7424eb8169a
+    m_Address: Assets/Art/2D Sprites/backgrounds/6-10/background1.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
