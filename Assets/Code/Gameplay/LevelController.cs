@@ -65,15 +65,15 @@ public class LevelController
     {
         Levels.Add(new Level1());
         Levels.Add(new Level2());
+        Levels.Add(new Level3());
+        Levels.Add(new Level4());
+        Levels.Add(new Level6());
+        Levels.Add(new Level7());
+        Levels.Add(new Level8());
+        Levels.Add(new Level5());
         Levels.Add(new Level2());
-        Levels.Add(new Level2());
-        Levels.Add(new Level2());
-        Levels.Add(new Level2());
-        Levels.Add(new Level2());
-        Levels.Add(new Level2());
-        Levels.Add(new Level2());
-        Levels.Add(new Level2());
-        Levels.Add(new Level2());
+        Levels.Add(new Level8());
+
     }
 
 

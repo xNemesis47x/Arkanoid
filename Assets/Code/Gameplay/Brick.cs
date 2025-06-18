@@ -107,26 +107,26 @@ public class Brick
     {
         if (brickRenderer == null) return;
 
-        Color color;
+        //Color color;
         GameObject newPrefab = null;
 
         switch (Life)
         {
-            case 4: 
-                color = Color.magenta;
+            case 4:
+                //color = Color.magenta;
                 newPrefab = brickManager.BrickPrefabsByLife[4];
                 break;
             case 3:
-                color = Color.green;
+                //color = Color.green;
                 newPrefab = brickManager.BrickPrefabsByLife[3];
                 break;
             case 2:
-                color = Color.blue;
+                //color = Color.blue;
                 newPrefab = brickManager.BrickPrefabsByLife[2];
                 break;
             case 1:
             default:
-                color = Color.cyan;
+                //color = Color.cyan;
                 newPrefab = brickManager.BrickPrefabsByLife[1];
                 break;
         }
@@ -149,7 +149,7 @@ public class Brick
         }
 
         brickRenderer.GetPropertyBlock(block);
-        block.SetColor("_Color", color);
+        //block.SetColor("_Color", color);
         brickRenderer.SetPropertyBlock(block);
     }
 

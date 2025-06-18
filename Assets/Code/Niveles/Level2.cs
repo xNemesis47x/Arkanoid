@@ -10,9 +10,9 @@ public class Level2 : ILevel
         //martillo
         for (int i = 0; i < 5; i++)
         {
-            layout.Add(new Vector2Int(5, i)); 
-            layout.Add(new Vector2Int(i, 2)); 
-            layout.Add(new Vector2Int(i, 3)); 
+            layout.Add(new Vector2Int(5, i));
+            layout.Add(new Vector2Int(i, 2));
+            layout.Add(new Vector2Int(i, 3));
         }
 
         return layout;
