@@ -42,8 +42,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cd3156c56ffbd9341a8cc0f6d1a73115
-    m_Address: Assets/Prefabs/Power Up 2.prefab
+  - m_GUID: e0957d5381cd40140b84d6fea3291eea
+    m_Address: Assets/Prefabs/Segunda tanda/PowerUp.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

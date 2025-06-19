@@ -3750,13 +3750,13 @@ MonoBehaviour:
       m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       m_EditorAssetChanged: 1
-    - m_AssetGUID: 27cd46451a8291843a37858bd967f3b8
-      m_SubObjectName: background2
+    - m_AssetGUID: 1a6cd2a7004ceb44ca047c10fd8dcbf6
+      m_SubObjectName: background1
       m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       m_EditorAssetChanged: 1
-    - m_AssetGUID: af193cd5d491ae14690ebe2fdc36eb6f
-      m_SubObjectName: background1
+    - m_AssetGUID: 27cd46451a8291843a37858bd967f3b8
+      m_SubObjectName: background2
       m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       m_EditorAssetChanged: 1
@@ -3766,7 +3766,7 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    - m_AssetGUID: cd3156c56ffbd9341a8cc0f6d1a73115
+    - m_AssetGUID: e0957d5381cd40140b84d6fea3291eea
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

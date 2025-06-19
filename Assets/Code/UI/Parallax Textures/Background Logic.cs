@@ -6,9 +6,9 @@ public class BackgroundLogic
     SpriteRenderer secondBackGround;
     SpriteRenderer thirdBackGround;
 
-    private float parallaxFactor1 = 0.2f;
-    private float parallaxFactor2 = 0.1f;
-    private float parallaxFactor3 = 0.05f;
+    private float parallaxFactor1 = 0.15f;
+    private float parallaxFactor2 = 0.2f;
+    private float parallaxFactor3 = 0.1f;
 
     public BackgroundLogic(AdressableInstantiator adressable, SpriteRenderer firstRenderer, SpriteRenderer secondRenderer, SpriteRenderer thirdRenderer)
     {

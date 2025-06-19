@@ -27,7 +27,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: af193cd5d491ae14690ebe2fdc36eb6f
+  - m_GUID: 1a6cd2a7004ceb44ca047c10fd8dcbf6
     m_Address: Assets/Art/2D Sprites/backgrounds/1-5/background1.png
     m_ReadOnly: 0
     m_SerializedLabels: []
