@@ -136,11 +136,7 @@ public class AdressableInstantiator
         {
             return loadedAssets[assetName];
         }
-        Debug.LogError($"Asset '{assetName}' not found. Available assets:");
-        foreach (string key in loadedAssets.Keys)
-        {
-            Debug.Log($"- {key}");
-        }
+
         return null;
     }
 

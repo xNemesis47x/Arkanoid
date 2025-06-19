@@ -32,7 +32,7 @@ public class BrickManager
 
         brickPrefab = BrickPrefabsByLife[4]; // usar el más fuerte para tamaño base
 
-        List<Vector2Int> layout = GenerateRandomBrickPositions(30, 10, 5);
+        List<Vector2Int> layout = GenerateRandomBrickPositions(50, 10, 5);
         InitializeBricks(currentUM, layout);
 
         return this;
@@ -42,7 +42,11 @@ public class BrickManager
     {
         RecycleBricks();
 
+        if (brickPrefab == null)
+            return;
+
         Vector2 brickSize = brickPrefab.GetComponent<Renderer>().bounds.size;
+
         float spacingX = brickSize.x + 0.1f; //0.1 extra para que no se toquen
         float spacingY = brickSize.y + 0.1f;
 
@@ -51,11 +55,12 @@ public class BrickManager
         foreach (Vector2Int pos in layout)
         {
             Vector2 spawnPos = startPosition + new Vector2(pos.x * spacingX, -pos.y * spacingY);
-            GameObject brickGO = GetBrick(spawnPos);
 
+            GameObject brickGO = GetBrick(spawnPos);
             Brick brick = GetLogic();
             bool containsPowerUp = Random.value < 0.1f;
             brick.Initialize(brickSize, brickGO.transform, this, currentUM, currentAdressable, containsPowerUp);
+            
             AllBricks.Add(brick);
         }
     }
@@ -93,7 +98,7 @@ public class BrickManager
         {
             brick.Disable();
             InactiveBrick.Enqueue(brick.BrickObject);
-            InactiveBricksLogic.Enqueue(brick); 
+            InactiveBricksLogic.Enqueue(brick);
         }
 
         AllBricks.Clear();
