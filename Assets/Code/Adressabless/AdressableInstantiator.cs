@@ -8,7 +8,7 @@ using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine.UIElements;
 
 [Serializable]
-public class Aasd
+public class AssetsGroupData
 {
     public string name = "";
     public List<AssetReferenceGameObject> prefabs = new();
@@ -18,7 +18,7 @@ public class Aasd
 public class AdressableInstantiator
 {
     [SerializeField]
-    private List<Aasd> assetReferences = new List<Aasd>();
+    private List<AssetsGroupData> assetReferences = new List<AssetsGroupData>();
     public Dictionary<string, GameObject> loadedAssets;
     public Dictionary<string, Sprite> loadedBackground;
     private int currentGroupIndex;
@@ -30,7 +30,7 @@ public class AdressableInstantiator
     UpdateManager updateManager;
     LevelController level;
 
-    public void Initialize(List<Aasd> adressablessList, UpdateManager up, LevelController level)
+    public void Initialize(List<AssetsGroupData> adressablessList, UpdateManager up, LevelController level)
     {
         assetReferences = adressablessList;
 

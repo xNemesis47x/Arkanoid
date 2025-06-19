@@ -11,7 +11,7 @@ public class UpdateManager : MonoBehaviour
 
     [field: SerializeField] public Transform BrickContainer { get; private set; }
 
-    [field: SerializeField] public List<Aasd> assetReferences { get; private set; }
+    [field: SerializeField] public List<AssetsGroupData> assetReferences { get; private set; }
 
     [field: SerializeField] public ScriptablePowerUps PowerUpScriptable { get; private set; }
 
