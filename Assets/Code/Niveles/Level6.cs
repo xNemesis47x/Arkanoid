@@ -16,7 +16,11 @@ public class Level6 : ILevel
             layout.Add(new Vector2Int(x, centerY));
 
         for (int y = 0; y < 5; y++)
+        {
+            if(y == centerY)
+                continue;
             layout.Add(new Vector2Int(centerX, y));
+        }
 
         return layout;
     }

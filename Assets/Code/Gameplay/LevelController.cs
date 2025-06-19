@@ -65,14 +65,15 @@ public class LevelController
     public void InitializeLevels()
     {
         Levels.Add(new Level1());
+        Levels.Add(new Level1());
         Levels.Add(new Level2());
         Levels.Add(new Level3());
         Levels.Add(new Level4());
+        Levels.Add(new Level2());
         Levels.Add(new Level6());
         Levels.Add(new Level7());
         Levels.Add(new Level8());
         Levels.Add(new Level5());
-        Levels.Add(new Level2());
         Levels.Add(new Level8());
     }
 
@@ -84,7 +85,7 @@ public class LevelController
         if (CountLevels <= Levels.Count - 1)
         {
             adressable.LoadGroupLevels(CountLevels);
-            BrickManager.Instance.InitializeBricks(updateManager, Levels[CountLevels].Layout());
+            BrickManager.Instance.InitializeBricks(updateManager, Levels[CountLevels - 1].Layout());
         }
         else
         {

@@ -807,7 +807,7 @@ GameObject:
   - component: {fileID: 253835149}
   - component: {fileID: 253835148}
   m_Layer: 5
-  m_Name: Restart
+  m_Name: Resume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3746,6 +3746,7 @@ MonoBehaviour:
   <firstSpriteRenderer>k__BackingField: {fileID: 1621470541}
   <secondSpriteRenderer>k__BackingField: {fileID: 300621866}
   <thirdSpriteRenderer>k__BackingField: {fileID: 524982322}
+  pauseAnimation: {fileID: 1518514748}
 --- !u!1 &1033179283
 GameObject:
   m_ObjectHideFlags: 0
@@ -5472,6 +5473,7 @@ GameObject:
   - component: {fileID: 1518514745}
   - component: {fileID: 1518514746}
   - component: {fileID: 1518514747}
+  - component: {fileID: 1518514748}
   m_Layer: 5
   m_Name: panel
   m_TagString: Untagged
@@ -5497,7 +5499,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: -0}
+  m_AnchoredPosition: {x: 0, y: 1058}
   m_SizeDelta: {x: 726.4, y: 873.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1518514746
@@ -5538,6 +5540,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &1518514748
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518514744}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dd492ae84e75f1d4ba2d26bb161b9624, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1532056526
 GameObject:
   m_ObjectHideFlags: 0

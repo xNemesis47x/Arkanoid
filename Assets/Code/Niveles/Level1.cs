@@ -12,7 +12,6 @@ public class Level1 : ILevel
 
         for (int y = 0; y < rows; y++)
         {
-            // A medida que subís, la fila tiene menos ladrillos centrados
             startX = y;
             endX = 10 - y;
 

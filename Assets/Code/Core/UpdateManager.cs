@@ -23,6 +23,8 @@ public class UpdateManager : MonoBehaviour
     [field: SerializeField] public SpriteRenderer secondSpriteRenderer { get; private set; }
     [field: SerializeField] public SpriteRenderer thirdSpriteRenderer { get; private set; }
 
+    public Animator pauseAnimation;
+
     public event Action OnRestartGame;
 
     public event Action OnNextLevel;
@@ -61,6 +63,7 @@ public class UpdateManager : MonoBehaviour
         LevelController.InitializeLevels();
         CurrentAudioManager.PlayMusic(music);
         UIManager.Instance.SplashScreen();
+        pauseAnimation.updateMode = AnimatorUpdateMode.UnscaledTime;
     }
 
     // Este método reemplaza el Update global
@@ -127,6 +130,7 @@ public class UpdateManager : MonoBehaviour
     public void RestartGame()
     {
         OnRestartGame?.Invoke();
+        UIManager.Instance.Game();
         Time.timeScale = 1f;
     }
 

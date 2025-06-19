@@ -82,6 +82,7 @@ public class UIManager : MonoBehaviour
     public void ShowPause()
     {
         currentController.PlayerPause();
+        updateManager.pauseAnimation.Play("PauseIn");
     }
 
     public void CountPaddleHits()
