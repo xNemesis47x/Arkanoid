@@ -32,7 +32,7 @@ public class BrickManager
 
         brickPrefab = BrickPrefabsByLife[4]; // usar el más fuerte para tamaño base
 
-        List<Vector2Int> layout = GenerateRandomBrickPositions(20, 10, 5);
+        List<Vector2Int> layout = GenerateRandomBrickPositions(30, 10, 5);
         InitializeBricks(currentUM, layout);
 
         return this;

@@ -60,6 +60,7 @@ public class LevelController
         CurrentPaddle.Lives = 3;
         adressable.LoadGroupLevels(CountLevels);
         BrickManager.Instance.Initialize(updateManager, adressable);
+        
     }
 
     public void InitializeLevels()
