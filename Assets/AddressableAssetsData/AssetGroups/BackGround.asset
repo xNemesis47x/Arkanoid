@@ -17,11 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 509ea166c47110542a9c5230893202f2
   m_SerializeEntries:
-  - m_GUID: 9560170416cbade4395c1aff28243d97
-    m_Address: Assets/Art/2D Sprites/backgrounds/1-5/background3.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 27cd46451a8291843a37858bd967f3b8
     m_Address: Assets/Art/2D Sprites/backgrounds/1-5/background2.png
     m_ReadOnly: 0

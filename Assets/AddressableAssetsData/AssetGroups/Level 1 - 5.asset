@@ -52,6 +52,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7bde7cd288b73c94a9c81fe9116380d9
+    m_Address: Assets/Art/2D Sprites/backgrounds/1-5/background3.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 688189b2caaa53e459ba289bdfe83c8b, type: 2}
   m_SchemaSet:
