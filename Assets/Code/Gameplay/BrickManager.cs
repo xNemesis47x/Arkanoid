@@ -18,7 +18,7 @@ public class BrickManager
 
     public Dictionary<int, GameObject> BrickPrefabsByLife { get; private set; } = new();
 
-    public void Initialize(UpdateManager currentUM, AdressableInstantiator adressable)
+    public BrickManager Initialize(UpdateManager currentUM, AdressableInstantiator adressable)
     {
         InactiveBricksLogic = new Queue<Brick>();
         InactiveBrick = new Queue<GameObject>();
@@ -34,6 +34,8 @@ public class BrickManager
 
         List<Vector2Int> layout = GenerateRandomBrickPositions(20, 10, 5);
         InitializeBricks(currentUM, layout);
+
+        return this;
     }
 
     public void InitializeBricks(UpdateManager currentUM, List<Vector2Int> layout)
@@ -41,7 +43,7 @@ public class BrickManager
         RecycleBricks();
 
         Vector2 brickSize = brickPrefab.GetComponent<Renderer>().bounds.size;
-        float spacingX = brickSize.x + 0.1f; // le das 0.1 extra para que no se toquen
+        float spacingX = brickSize.x + 0.1f; //0.1 extra para que no se toquen
         float spacingY = brickSize.y + 0.1f;
 
         Vector2 startPosition = new Vector2(-(10 - 1) * spacingX / 2f, 4f);

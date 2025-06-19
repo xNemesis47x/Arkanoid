@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text livesText;
     [SerializeField] private TMP_Text levelsText;
     [SerializeField] private TMP_Text pointsText;
+    [SerializeField] private TMP_Text paddleHitsText;
+    [SerializeField] private TMP_Text bricksAmountText;
 
     [SerializeField] private UpdateManager updateManager;
     private UIModel currentModel;
@@ -41,7 +43,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         currentModel = new UIModel(updateManager.LevelController);
-        currentView = new UIView(livesText, levelsText, pointsText, menuScreen, winScreen, definetelyWinScreen, defeatScreen, pauseScreen, videoController);
+        currentView = new UIView(livesText, levelsText, pointsText, paddleHitsText, bricksAmountText, menuScreen, winScreen, definetelyWinScreen, defeatScreen, pauseScreen, videoController);
 
         currentController = new UIController(currentModel, currentView);
     }
@@ -80,6 +82,16 @@ public class UIManager : MonoBehaviour
     public void ShowPause()
     {
         currentController.PlayerPause();
+    }
+
+    public void CountPaddleHits()
+    {
+        currentController.AddPaddleHit();
+    }
+
+    public void BricksAmount()
+    {
+        currentController.BricksAmount();
     }
 
     public void LoseLife()

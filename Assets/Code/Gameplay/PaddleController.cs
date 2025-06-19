@@ -19,13 +19,13 @@ public class PaddleController : IUpdatable
     public int Lives { get; set; }
     public List<BallController> ActiveBalls { get; private set; } = new List<BallController>();
     public Queue<GameObject> InactiveObjectBalls { get; private set; } = new Queue<GameObject>();
-    
-    public Action<float> OnMovePaddle; 
+
+    public Action<float> OnMovePaddle;
 
     public Queue<BallController> InactiveLogicBalls { get; private set; } = new Queue<BallController>();
-    
-    private UpdateManager updateManager;
+    public int PaddleHits { get; set; }
 
+    private UpdateManager updateManager;
     private BallController ballController;
 
     public void Initialize(Renderer rendererFake, Transform transform, UpdateManager currentUM, AdressableInstantiator adressable)
@@ -174,6 +174,7 @@ public class PaddleController : IUpdatable
             ball.Dispose();
         }
         SpawnNewBall();
+        PaddleHits = 0;
     }
 
     public void DestroyReference()

@@ -127,7 +127,6 @@ public class UpdateManager : MonoBehaviour
     public void RestartGame()
     {
         OnRestartGame?.Invoke();
-        UIManager.Instance.Game();
         Time.timeScale = 1f;
     }
 

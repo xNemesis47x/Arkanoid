@@ -35,10 +35,26 @@ public class UIController
         model.UpdateLevels();
         model.UpdateLives();
         model.UpdatePoints();
+        model.UpdatePaddleHits();
+        model.UpdateBricksAmount();
 
         view.ShowLevels(model.CountLevels);
         view.ShowPoints(model.PointsPlayer);
         view.ShowLives(model.Lives);
+        view.ShowPaddleHits(model.PaddleHits);
+        view.ShowBricksAmount(model.bricksAmount);
+    }
+
+    public void AddPaddleHit()
+    {
+        model.UpdatePaddleHits();
+        view.ShowPaddleHits(model.PaddleHits);
+    }
+
+    public void BricksAmount()
+    {
+        model.UpdateBricksAmount();
+        view.ShowBricksAmount(model.bricksAmount);
     }
 
     public void AddPoints()

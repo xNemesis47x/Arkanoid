@@ -13,6 +13,7 @@ public class LevelController
     private BackgroundLogic background;
 
     public PaddleController CurrentPaddle { get; private set; }
+    public BrickManager BrickManager { get; private set; }
 
     public int CountLevels { get; set; } = 0;
     public int CountPoints { get; set; } = 0;
@@ -25,7 +26,7 @@ public class LevelController
         paddleSpawnPoint = updateManager.PaddleSpawnPoint;
         background = new BackgroundLogic(adressable, updateManager.firstSpriteRenderer, updateManager.secondSpriteRenderer, updateManager.thirdSpriteRenderer);
         Initialize();
-        BrickManager.Instance.Initialize(currentUM, currentAdress);
+        BrickManager = BrickManager.Instance.Initialize(currentUM, currentAdress);
         currentUM.OnRestartGame -= RestartLevel;
         currentUM.OnRestartGame += RestartLevel;
         currentUM.OnNextLevel -= NextLevel;
@@ -73,7 +74,6 @@ public class LevelController
         Levels.Add(new Level5());
         Levels.Add(new Level2());
         Levels.Add(new Level8());
-
     }
 
 
@@ -90,8 +90,5 @@ public class LevelController
         {
             Debug.LogWarning("No hay mas niveles pa");
         }
-
     }
-
-
 }

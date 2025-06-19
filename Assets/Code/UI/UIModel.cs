@@ -5,6 +5,8 @@ public class UIModel
     public int CountLevels { get; private set; }
     public int Lives { get; private set; }
     public int PointsPlayer { get; private set; }
+    public int PaddleHits { get; private set; }
+    public int bricksAmount { get; private set; }
 
     public UIModel(LevelController currentLevelController)
     {
@@ -24,6 +26,16 @@ public class UIModel
     public void UpdateLives()
     {
         Lives = levelController.CurrentPaddle.Lives;
+    }
+
+    public void UpdatePaddleHits()
+    {
+        PaddleHits = levelController.CurrentPaddle.PaddleHits;
+    }
+
+    public void UpdateBricksAmount()
+    {
+        this.bricksAmount = levelController.BrickManager.GetActiveBricks();
     }
 
 }

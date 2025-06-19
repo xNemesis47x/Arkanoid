@@ -77,6 +77,8 @@ public class BallController : IUpdatable
 
         if (isOverlappingX && isOverlappingY && direction.y < 0f)
         {
+            paddleOwner.PaddleHits++;
+            UIManager.Instance.CountPaddleHits();
             Vector2 paddlePos = paddleOwner.Position;
             Vector2 paddleSize = paddleOwner.Size;
 
