@@ -23,20 +23,16 @@ public class AdressableInstantiator
     public Dictionary<string, Sprite> loadedBackground;
     private int currentGroupIndex;
     private List<AsyncOperationHandle> loadedHandles = new List<AsyncOperationHandle>();
-    public event Action OnLoadComplete;
     public bool useRemoteAssets = true;
     public String localURL = "http://localhost:3000/";
     public String cloudURL = "https://myserver.com/";
 
-    LoaderController loaderController = new LoaderController();
     UpdateManager updateManager;
     LevelController level;
 
     public void Initialize(List<Aasd> adressablessList, UpdateManager up, LevelController level)
     {
         assetReferences = adressablessList;
-
-        loaderController.Initialize(this);
 
         if (useRemoteAssets)
         {
@@ -117,7 +113,6 @@ public class AdressableInstantiator
         if (assetsLoaded == assetsToLoad)
         {
             Debug.Log("Assets cargados: " + assetsLoaded);
-            OnLoadComplete?.Invoke();
             Time.timeScale = 0f;
             level.Start(updateManager, this);
             Time.timeScale = 1f;
@@ -133,11 +128,6 @@ public class AdressableInstantiator
         loadedHandles.Clear();
         loadedAssets.Clear();
         loadedBackground.Clear();
-    }
-
-    public void SubscribeOnLoadComplete(Action callback)
-    {
-        OnLoadComplete += callback;
     }
 
     public GameObject GetInstancePrefabs(string assetName)

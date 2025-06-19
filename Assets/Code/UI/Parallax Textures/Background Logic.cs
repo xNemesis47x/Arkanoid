@@ -23,7 +23,7 @@ public class BackgroundLogic
 
     public void ParallaxEffect(float deltaX)
     {
-        firstBackGround.transform.position = new Vector3(deltaX * parallaxFactor1, 0f, 0f);
+        firstBackGround.transform.position += new Vector3(deltaX * parallaxFactor1, 0f, 0f);
         secondBackGround.transform.position += new Vector3(deltaX * parallaxFactor2, 0f, 0f);
         thirdBackGround.transform.position += new Vector3(deltaX * parallaxFactor3, 0f, 0f);
     }
