@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image defeatScreen;
     [SerializeField] private Image pauseScreen;
     [SerializeField] private VideoPlayer videoController;
+    [SerializeField] private Animator lifeAnimator;
+
 
     [Header("Textos")]
     [SerializeField] private TMP_Text livesText;
@@ -43,7 +45,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         currentModel = new UIModel(updateManager.LevelController);
-        currentView = new UIView(livesText, levelsText, pointsText, paddleHitsText, bricksAmountText, menuScreen, winScreen, definetelyWinScreen, defeatScreen, pauseScreen, videoController);
+        currentView = new UIView(livesText, levelsText, pointsText, paddleHitsText, bricksAmountText, menuScreen, winScreen, definetelyWinScreen, defeatScreen, pauseScreen, videoController, lifeAnimator);
 
         currentController = new UIController(currentModel, currentView);
     }

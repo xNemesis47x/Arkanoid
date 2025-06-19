@@ -65,6 +65,7 @@ public class UIController
 
     public void LoseLife()
     {
+        view.LoseLifeAnimation();
         model.UpdateLives();
         view.ShowLives(model.Lives);
     }

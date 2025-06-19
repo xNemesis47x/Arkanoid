@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1444,6 +1444,7 @@ GameObject:
   - component: {fileID: 346772886}
   - component: {fileID: 346772888}
   - component: {fileID: 346772887}
+  - component: {fileID: 346772889}
   m_Layer: 5
   m_Name: life image
   m_TagString: Untagged
@@ -1509,6 +1510,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 346772885}
   m_CullTransparentMesh: 1
+--- !u!95 &346772889
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346772885}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6264b6d0b3246d8488536edb5cc8d290, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &401956363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1520,8 +1542,9 @@ GameObject:
   - component: {fileID: 401956364}
   - component: {fileID: 401956365}
   - component: {fileID: 401956366}
+  - component: {fileID: 401956367}
   m_Layer: 5
-  m_Name: panel
+  m_Name: MainMenuPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1587,6 +1610,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &401956367
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401956363}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2e4b0d755dffceb409ecd5264608dec2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &407052571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1802,7 +1846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.3529412, g: 0.20392159, b: 0.37647063, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1990,6 +2034,7 @@ MonoBehaviour:
   defeatScreen: {fileID: 1914449708}
   pauseScreen: {fileID: 226626635}
   videoController: {fileID: 1682104796}
+  lifeAnimator: {fileID: 346772889}
   livesText: {fileID: 546637597}
   levelsText: {fileID: 962746715}
   pointsText: {fileID: 660437268}
@@ -3307,8 +3352,9 @@ GameObject:
   - component: {fileID: 803322252}
   - component: {fileID: 803322254}
   - component: {fileID: 803322253}
+  - component: {fileID: 803322255}
   m_Layer: 5
-  m_Name: panel
+  m_Name: settingsPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3355,7 +3401,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2ef4a4ef47bdcc14db0f911f28c79530, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4555f23080551c349a4ee9fdb79b3a89, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3373,6 +3419,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 803322251}
   m_CullTransparentMesh: 1
+--- !u!95 &803322255
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803322251}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 84ecf6590d584c548a7f043b2ccf3153, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &962746712
 GameObject:
   m_ObjectHideFlags: 0
@@ -3747,6 +3814,8 @@ MonoBehaviour:
   <secondSpriteRenderer>k__BackingField: {fileID: 300621866}
   <thirdSpriteRenderer>k__BackingField: {fileID: 524982322}
   pauseAnimation: {fileID: 1518514748}
+  settingsAnimation: {fileID: 803322255}
+  menuAnimation: {fileID: 401956367}
 --- !u!1 &1033179283
 GameObject:
   m_ObjectHideFlags: 0
@@ -3774,7 +3843,7 @@ RectTransform:
   m_GameObject: {fileID: 1033179283}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.9631, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1927243859}
@@ -3797,7 +3866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8196079, g: 0.65882355, b: 0.7960785, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5499,7 +5568,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1058}
+  m_AnchoredPosition: {x: 0, y: 953}
   m_SizeDelta: {x: 726.4, y: 873.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1518514746
@@ -6831,7 +6900,7 @@ RectTransform:
   m_GameObject: {fileID: 1982831087}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.98743, y: 0.7609, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2134635427}

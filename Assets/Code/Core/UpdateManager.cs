@@ -24,6 +24,10 @@ public class UpdateManager : MonoBehaviour
     [field: SerializeField] public SpriteRenderer thirdSpriteRenderer { get; private set; }
 
     public Animator pauseAnimation;
+    public Animator settingsAnimation;
+    public Animator menuAnimation;
+
+
 
     public event Action OnRestartGame;
 
@@ -64,6 +68,8 @@ public class UpdateManager : MonoBehaviour
         CurrentAudioManager.PlayMusic(music);
         UIManager.Instance.SplashScreen();
         pauseAnimation.updateMode = AnimatorUpdateMode.UnscaledTime;
+        settingsAnimation.updateMode = AnimatorUpdateMode.UnscaledTime;
+        menuAnimation.updateMode = AnimatorUpdateMode.UnscaledTime;
     }
 
     // Este método reemplaza el Update global

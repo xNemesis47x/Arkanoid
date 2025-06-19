@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
@@ -10,6 +11,7 @@ public class UIView
     private Image defeatScreen;
     private Image pauseScreen;
     private VideoPlayer videoController;
+    private Animator lifeAnimator;
 
     private TMP_Text livesText;
     private TMP_Text levelsText;
@@ -17,7 +19,7 @@ public class UIView
     private TMP_Text paddleHitsText;
     private TMP_Text bricksAmountText;
 
-    public UIView(TMP_Text lives, TMP_Text levels, TMP_Text points, TMP_Text paddleHits, TMP_Text bricksAmount, Image menu, Image win, Image definetelyWin, Image defeat, Image pause, VideoPlayer splashVideo)
+    public UIView(TMP_Text lives, TMP_Text levels, TMP_Text points, TMP_Text paddleHits, TMP_Text bricksAmount, Image menu, Image win, Image definetelyWin, Image defeat, Image pause, VideoPlayer splashVideo, Animator livesAnimator)
     {
         menuScreen = menu;
         winScreen = win;
@@ -30,6 +32,7 @@ public class UIView
         pointsText = points;
         paddleHitsText = paddleHits;
         bricksAmountText = bricksAmount;
+        lifeAnimator = livesAnimator;
     }
 
     public void ShowLives(int lives)
@@ -95,4 +98,8 @@ public class UIView
         pauseScreen.gameObject.SetActive(isActive);
     }
 
+    public void LoseLifeAnimation()
+    {
+        lifeAnimator.SetTrigger("LoseLife");
+    }
 }
